@@ -23,5 +23,6 @@ process.crawl('posuda-pro')
 process.crawl('projecthotel')
 process.crawl('rposuda')
 process.crawl('masterglass')
+process.crawl('anuk')
 process.start() # the script will block here until all crawling jobs are finished
 print("Done.")
