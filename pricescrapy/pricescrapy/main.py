@@ -4,6 +4,7 @@ import urllib.request
 from app import app
 from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
+import time
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf',])
 
@@ -30,7 +31,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'in'+str(int(time.time()))))#filename))
             flash('Файл успешно загружен')
             return redirect('/')
         else:
