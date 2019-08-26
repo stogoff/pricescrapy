@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
+import time
 # Scrapy settings for pricescrapy project
 #
 # For simplicity, this file contains only settings considered important or
@@ -117,4 +117,6 @@ for r, d, f in os.walk(path):
 files.sort()
 INPUT_FILENAME = files[-1]
 OUTPUT_FILENAME = 'static/result{}.csv'.format(INPUT_FILENAME[-14:-4])
+print(INPUT_FILENAME)
+time.sleep(5)
 
