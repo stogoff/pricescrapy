@@ -2,7 +2,7 @@ import os
 # import magic
 import urllib.request
 from app import app
-from flask import Flask, flash, request, redirect, render_template
+from flask import Flask, flash, request, redirect, render_template, Markup
 from werkzeug.utils import secure_filename
 import time
 
@@ -35,8 +35,8 @@ def upload_file():
             link = '/static/result{}.csv'.format(timestamp)
             fn = 'in{}.txt'.format(timestamp)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], fn))
-            flash('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через несколько минут \
-                   вы сможете скачать файл результата.'.format(fn, link))
+            flash(Markup('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через несколько минут \
+                   вы сможете скачать файл результата.'.format(fn, link)))
             return redirect('/')
         else:
             flash('Разрешенный тип файла: txt')
