@@ -6,9 +6,8 @@ from flask import Flask, flash, request, redirect, render_template
 from werkzeug.utils import secure_filename
 import time
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf',])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', ])
 
-link = ''
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -16,15 +15,11 @@ def allowed_file(filename):
 
 @app.route('/')
 def upload_form():
-    global link
-    if request.method == 'GET':
-        link = ' '
-    return render_template('upload.html', link=link)
+    return render_template('upload.html')
 
 
 @app.route('/', methods=['POST'])
 def upload_file():
-    global link
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -35,12 +30,13 @@ def upload_file():
             flash('Не выбран файл')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            #filename = secure_filename(file.filename)
+            # filename = secure_filename(file.filename)
             timestamp = str(int(time.time()))
             link = '/static/result{}.csv'.format(timestamp)
             fn = 'in{}.txt'.format(timestamp)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], fn))
-            flash('Файл {} успешно загружен'.format(fn))
+            flash('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через несколько минут \
+                   вы сможете скачать файл результата.'.format(fn, link))
             return redirect('/')
         else:
             flash('Разрешенный тип файла: txt')
