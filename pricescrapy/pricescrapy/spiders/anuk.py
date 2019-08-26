@@ -25,7 +25,7 @@ class AnukSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-        with open('/tmp/uploads/input.txt') as f:
+        with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 # print(line.strip().split(';'))
 

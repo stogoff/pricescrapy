@@ -8,7 +8,7 @@ class MyprovanceSpider(scrapy.Spider):
     start_urls = ['http://myprovance.ru/']
 
     def start_requests(self):
-        with open('/tmp/uploads/input.txt') as f:
+        with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 # print(line.strip().split(';'))
 
