@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   </head>
   <body>
+  <div class="container">
+
 	<h5>Выберите файл для загрузки. Файл дожен быть следующего формата: Бренд;Артикул;Название. На каждой строке один товар, разделитель ";"</h5>
 	<p>
 		{% with messages = get_flashed_messages() %}
@@ -27,5 +29,6 @@
 			<input type="submit" value="Отправить">
 		</p>
 	</form>
+  </div>
   </body>
 </html>
