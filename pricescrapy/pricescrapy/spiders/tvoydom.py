@@ -25,14 +25,17 @@ class TvoydomSpider(scrapy.Spider):
     def parse(self, response):
         art = response.meta['art']
         j = json.loads(response.css('vue-search-page').xpath('@json-data').get())
-        p = j['productsInSections'][0]['products'][0]
-        title = p['name']
-        link = p['url']
-        shop = self.name
-        price = p['price']
-        yield {'title': title,
-                       'link': link,
-                       'price': price,
-                       'shop': shop,
-                       'art': art
-                       }
+        try:
+            p = j['productsInSections'][0]['products'][0]
+            title = p['name']
+            link = p['url']
+            shop = self.name
+            price = p['price']
+            yield {'title': title,
+                   'link': link,
+                   'price': price,
+                   'shop': shop,
+                   'art': art
+                   }
+        except IndexError:
+            pass
