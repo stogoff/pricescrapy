@@ -52,8 +52,8 @@ class AllData(Base):
 
 
 class AddTablePipeline(object):
-    def __init__(self):
-        self.file = open('static/result.csv', 'a')
+
+
 
     def process_item(self, item, spider):
         Base.metadata.create_all(engine)
@@ -65,7 +65,9 @@ class AddTablePipeline(object):
                          art=item['art'])
         db.add(record)
         db.commit()
-        self.file.write("{};{};{};{};{}\n".format(item['art'],item['title'],item['price'],item['shop'],item['link']))
+
+        with open(spider.settings.get('OUTPUT_FILENAME')) as file:
+            file.write("{};{};{};{};{}\n".format(item['art'],item['title'],item['price'],item['shop'],item['link']))
         
         return item
 
