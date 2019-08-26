@@ -8,6 +8,7 @@ import time
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf',])
 
+link = ''
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -15,11 +16,13 @@ def allowed_file(filename):
 
 @app.route('/')
 def upload_form():
-    return render_template('upload.html')
+    global link
+    return render_template('upload.html', link=link)
 
 
 @app.route('/', methods=['POST'])
 def upload_file():
+    global link
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -30,8 +33,10 @@ def upload_file():
             flash('Не выбран файл')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'in{}.txt'.format(str(int(time.time())))))#filename))
+            #filename = secure_filename(file.filename)
+            timestamp = str(int(time.time()))
+            link = '/static/result{}.csv'.format(timestamp)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'in{}.txt'.format(timestamp)))#filename))
             flash('Файл успешно загружен')
             return redirect('/')
         else:
