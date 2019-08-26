@@ -1,0 +1,27 @@
+<!doctype html>
+<title></title>
+<h5>Выберите файл для загрузки. Файл дожен быть следующего формата: Бренд;Артикул;Название. На каждой строке один товар, разделитель ";"</h5>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Отправить">
+	</p>
+</form>
+
+<p>
+По этой <a href='/static/result.csv'>ссылке</a> через несколько минут вы сможете скачать файл результата.
