@@ -17,6 +17,8 @@ def allowed_file(filename):
 @app.route('/')
 def upload_form():
     global link
+    if request.method == 'GET':
+        link = ' '
     return render_template('upload.html', link=link)
 
 
@@ -46,4 +48,4 @@ def upload_file():
 
 
 if __name__ == "__main__":
-    app.run(host = "167.71.37.44")
+    app.run(host="167.71.37.44")
