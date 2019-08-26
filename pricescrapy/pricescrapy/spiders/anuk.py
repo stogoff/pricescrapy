@@ -10,7 +10,6 @@ class AnukSpider(scrapy.Spider):
     start_urls = ['http://anuk-anuk.com/auth/']
 
     def parse(self, response):
-
         form_data = {"AUTH_FORM": "Y",
                      "TYPE": "AUTH",
                      "backurl": "/catalog/",
@@ -26,7 +25,6 @@ class AnukSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-        open_in_browser(response)
         with open('/tmp/uploads/input.txt') as f:
             for line in f.readlines():
                 # print(line.strip().split(';'))
