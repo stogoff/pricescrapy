@@ -66,7 +66,7 @@ class AddTablePipeline(object):
         db.add(record)
         db.commit()
 
-        with open(spider.settings.get('OUTPUT_FILENAME')) as file:
+        with open(spider.settings.get('OUTPUT_FILENAME'),'a') as file:
             file.write("{};{};{};{};{}\n".format(item['art'],item['title'],item['price'],item['shop'],item['link']))
         
         return item
