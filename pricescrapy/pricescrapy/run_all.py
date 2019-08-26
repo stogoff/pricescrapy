@@ -25,5 +25,8 @@ process.crawl('rposuda')
 process.crawl('masterglass')
 process.crawl('anuk')
 process.crawl('provance')
+process.crawl('provance-shop')
+process.crawl('myprovance')
+#process.crawl('lavandadecor')
 process.start() # the script will block here until all crawling jobs are finished
 print("Done.")
