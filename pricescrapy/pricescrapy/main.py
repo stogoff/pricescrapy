@@ -31,7 +31,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'in'+str(int(time.time()))))#filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'in{}.txt'.format(str(int(time.time())))))#filename))
             flash('Файл успешно загружен')
             return redirect('/')
         else:
