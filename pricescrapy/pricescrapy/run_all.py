@@ -19,11 +19,12 @@ import os.path
 #file.close()
 process = CrawlerProcess(get_project_settings())
 #print(process.settings['INPUT_FILENAME'][-14:-4])
-if os.path.isfile(process.settings['OUTPUT_FILENAME']):
-    print(process.settings['OUTPUT_FILENAME'])
+outfile = process.settings['OUTPUT_FILENAME']
+if os.path.isfile(outfile):
+    print(outfile)
     print('old')
     sys.exit()
-file = open(process.settings['OUTPUT_FILENAME'], 'w')
+file = open(outfile, 'w')
 file.close()
 process.crawl('mirposudy')
 process.crawl('posuda-pro')
@@ -38,7 +39,7 @@ process.crawl('myprovance')
 process.crawl('tvoydom')
 process.crawl('maxidom')
 process.start() # the script will block here until all crawling jobs are finished
-file = open(process.settings['OUTPUT_FILENAME'], 'a')
+file = open(outfile, 'a')
 file.write("\nend of file\n")
 file.close()
 print("Done.")

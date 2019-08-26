@@ -10,11 +10,11 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import Column, String, Integer
 
 # db settings
-#dbuser = 'user' #DB username
-#dbpass = 'password' #DB password
-#dbhost = 'localhost' #DB host
-#dbname = 'scrapyspiders' #DB database name
-#engine = create_engine("mysql://%s:%s@%s/%s?charset=utf8&use_unicode=0"
+# dbuser = 'user' #DB username
+# dbpass = 'password' #DB password
+# dbhost = 'localhost' #DB host
+# dbname = 'scrapyspiders' #DB database name
+# engine = create_engine("mysql://%s:%s@%s/%s?charset=utf8&use_unicode=0"
 #                       %(dbuser, dbpass, dbhost, dbname),
 #                       echo=False,
 #                       pool_recycle=1800)
@@ -50,11 +50,7 @@ class AllData(Base):
                (self.id, self.title, self.link, self.price, self.shop, self.art)
 
 
-
 class AddTablePipeline(object):
-
-
-
     def process_item(self, item, spider):
         Base.metadata.create_all(engine)
         # create a new SQL Alchemy object and add to the db session
@@ -66,9 +62,9 @@ class AddTablePipeline(object):
         db.add(record)
         db.commit()
 
-        with open(spider.settings.get('OUTPUT_FILENAME'),'a') as file:
-            file.write("{};{};{};{};{}\n".format(item['art'],item['title'],item['price'],item['shop'],item['link']))
-        
+        with open(spider.settings.get('OUTPUT_FILENAME'), 'a') as file:
+            file.write("{};{};{};{};{}\n".format(item['art'], item['title'], item['price'], item['shop'], item['link']))
+
         return item
 
 
