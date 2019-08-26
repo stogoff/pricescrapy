@@ -36,8 +36,9 @@ def upload_file():
             #filename = secure_filename(file.filename)
             timestamp = str(int(time.time()))
             link = '/static/result{}.csv'.format(timestamp)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'in{}.txt'.format(timestamp)))#filename))
-            flash('Файл успешно загружен')
+            fn = 'in{}.txt'.format(timestamp)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], fn))
+            flash('Файл {} успешно загружен'.format(fn))
             return redirect('/')
         else:
             flash('Разрешенный тип файла: txt')
