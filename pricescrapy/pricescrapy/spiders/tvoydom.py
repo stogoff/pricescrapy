@@ -15,11 +15,12 @@ class TvoydomSpider(scrapy.Spider):
                 # print(line.strip().split(';'))
 
                 brand = line.strip().split(';')[0]
-                art = line.strip().split(';')[1].split('.')[0].split(',')[0]
+                art = line.strip().split(';')[1].replace('.00', '').replace(',00', '')
+
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
                 print(art)
-                url = 'https://tvoydom.ru/search/?q={}+{}'.format(brand,art)
+                url = 'https://tvoydom.ru/search/?q={}+{}'.format(brand, art)
                 yield scrapy.Request(url=url, meta={'art': art}, callback=self.parse)
 
     def parse(self, response):
