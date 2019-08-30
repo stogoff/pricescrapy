@@ -27,7 +27,7 @@ class HoffSpider(scrapy.Spider):
         if quantity == '1':
             for div in response.css('div.elem-product'):
                 title = div.css('div.elem-product__links')[0].css('a::text').get().strip()
-                link = div.css('div.elem-product__links')[0].css('a').xpath('@href').get().strip()
+                link = 'https://hoff.ru' + div.css('div.elem-product__links')[0].css('a').xpath('@href').get().strip()
                 shop = self.name
                 price = div.css('div.price-current::text').get().strip()
                 yield {'title': title,
