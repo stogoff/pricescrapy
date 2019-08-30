@@ -7,10 +7,12 @@
 +https://provance.ru
 +https://provance-shop.ru/
 +https://myprovance.ru/
----https://lavandadecor.ru/
 
 +https://tvoydom.ru/
 +https://www.maxidom.ru/
+vseblaga.ru
+cavevo.ru
+
 https://tddomovoy.ru/
 https://hoff.ru/
 https://accessoriesforhome.ru/
@@ -26,3 +28,5 @@ https://guruvkusa.ru
 https://8magazin.ru
 https://www.onlinetrade.ru/
 https://www.eldorado.ru
+
+---https://lavandadecor.ru/
