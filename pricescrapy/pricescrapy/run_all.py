@@ -40,7 +40,11 @@ process.crawl('tvoydom')
 process.crawl('maxidom')
 process.crawl('hoff')
 process.crawl('accessoriesforhome')
-
+process.crawl('tescoma-shop')
+#process.crawl('holodilnik.ru')
+#process.crawl('eldorado')
+#process.crawl()
+#process.crawl()
 process.start() # the script will block here until all crawling jobs are finished
 file = open(outfile, 'a')
 file.write("\nend of file\n")
