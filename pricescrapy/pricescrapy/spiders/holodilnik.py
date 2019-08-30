@@ -29,7 +29,7 @@ class HolodilnikSpider(scrapy.Spider):
         for div in response.css('div.product-specification'):
             title = div.css('div.product-name').css('span::text').get()
             if art in title:
-                link = 'http://holodilnik.ru/' + div.css('div.product-name').css('a').xpath('@href').get().strip()
+                link = 'http://holodilnik.ru' + div.css('div.product-name').css('a').xpath('@href').get().strip()
                 shop = self.name
                 price = div.css('div.price::text').get()
                 price = re.sub(r'\s+', '', price)
