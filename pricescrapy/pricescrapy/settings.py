@@ -118,5 +118,5 @@ files.sort()
 INPUT_FILENAME = files[-1]
 OUTPUT_FILENAME = 'static/result{}.csv'.format(INPUT_FILENAME[-14:-4])
 print(INPUT_FILENAME)
-time.sleep(5)
+time.sleep(1)
 
