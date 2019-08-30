@@ -19,7 +19,10 @@ class TddomovoySpider(scrapy.Spider):
                 # query = "{} {}".format(art,title)
                 print(art)
                 url = 'https://tddomovoy.ru/catalog/?q={}+{}&how=r'.format(brand, art)
-                yield scrapy.Request(url=url, meta={'art': art}, callback=self.parse)
+                yield scrapy.Request(url=url,
+                                     headers={'Referer': 'https://tddomovoy.ru/'},
+                                     meta={'art': art},
+                                     callback=self.parse)
 
     def parse(self, response):
         art = response.meta['art']

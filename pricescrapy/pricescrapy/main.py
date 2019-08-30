@@ -5,15 +5,31 @@ from app import app
 from flask import Flask, flash, request, redirect, render_template, Markup
 from werkzeug.utils import secure_filename
 import time
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', ])
 
+app = Flask(__name__)
+auth = HTTPBasicAuth()
+
+users = {
+    "john": generate_password_hash("hello"),
+    "susan": generate_password_hash("bye")
+}
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users:
+        return check_password_hash(users.get(username), password)
+    return False
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
+@auth.login_required
 def upload_form():
     return render_template('upload.html')
 
