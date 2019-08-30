@@ -10,7 +10,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', ])
 
-app = Flask(__name__)
 auth = HTTPBasicAuth()
 
 users = {
