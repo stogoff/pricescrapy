@@ -51,7 +51,7 @@ class CavevoSpider(scrapy.Spider):
             else:
                 yield scrapy.Request(url=link,
                                      headers={'Referer': self.start_urls[0]},
-                                     meta={'art': art, 'brand': brand, 'title': title, 'rec':True},
+                                     meta={'art': art, 'brand': brand, 'title': title, 'rec':False},
                                      callback=self.parse_item)
         if not items:
             if not response.meta['rec']:
@@ -61,7 +61,7 @@ class CavevoSpider(scrapy.Spider):
 
                 url = self.search.format(brand, titleplus)
                 yield scrapy.Request(url=url,
-                                     meta={'art': art, 'brand': brand, 'title': tit},
+                                     meta={'art': art, 'brand': brand, 'title': tit, 'rec':True},
                                      headers={'Referer': self.start_urls[0]},
                                      callback=self.parse)
 
