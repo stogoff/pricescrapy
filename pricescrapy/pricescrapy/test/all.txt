@@ -1,0 +1,24 @@
+Tescoma;354924;Газовая зажигалка Presto
+Tescoma;420698;Набор пробок для вина Presto
+Tescoma;420774;Приспособление для тюбиков Presto
+Tescoma;428246;Пресс для чеснока GrandChef
+Tescoma;428340;Сито GrandChef 
+Tescoma;602820;Сковорода с керамическим покрытием 20см FUSION
+Tescoma;606870;Кастрюля GrandCHEF 20 см
+Tescoma;630040;Ролик для вырезания колец Delicia
+Tescoma;630044;Ролик для нарезки сетки Delicia
+Tescoma;630329;Сахарница (150 мл.) DELICIA
+Tescoma;630634;Корзинки кондитерские Delicia 
+Tescoma;631016;Форма для печенья Сердце DELICIA
+Tescoma;634560;Весы кухонные
+Tescoma;638019;Лопатка широкая  SPACE LINE
+Tescoma;643128;Полотно для приготовления кремового сыра Tescoma Della Casa, 5 шт
+Tescoma;643180;Приспособление для изготовления мороженого  Della Casa
+Tescoma;643880;Терка  HANDY
+Tescoma;695498;Графин 1 л Uno Vino
+Tescoma;780210;Набор посуды  PRESIDENT
+Tescoma;881280;Блок для ножей PRECIOSO, с 6 ножами
+Tescoma;891830;Контейнер для холодильника Purity
+Tescoma;900034;Полка 2-х этажная для 6 емкостей MONTI
+Tescoma;900647;Сушилка силиконовая (42х30см.) CLEAN KIT
+
