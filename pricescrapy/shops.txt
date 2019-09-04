@@ -11,26 +11,28 @@
 +https://tvoydom.ru/
 +https://www.maxidom.ru/
 
----https://tddomovoy.ru/
+
 
 +https://hoff.ru/		
 +https://accessoriesforhome.ru/
 +https://tescoma-shop.ru/
 +https://www.holodilnik.ru
-	https://www.eldorado.ru		
++https://www.eldorado.ru
 4.9:
-	wildberries.ru		
-	allrightshop.ru		
-	bazaropt.ru		
-	axentia-shop.ru		
-	vseblaga.ru		
-	cavevo.ru		
-	posudamos.ru		
-	fg-buy.ru		
-	tdgaem.ru		
-	kibet-shop.ru		
-	goodstoria.ru		
-	sima-land.ru		
+
++https://wildberries.ru
++https://allrightshop.ru
++https://bazaropt.ru
++https://axentia-shop.ru
++https://vseblaga.ru
++https://cavevo.ru
+----https://posudamos.ru
++https://fg-buy.ru
++https://tdgaem.ru
++https://kibet-shop.ru
++https://goodstoria.ru
+----https://sima-land.ru
+
 Формирование таблицы выгрузки			
 Добавление новых сайтов	https://seedspost.ru		
 	https://icecreamclub.ru		
@@ -73,3 +75,5 @@
 	dommo.ru		
 	musglass.ru		
 ---https://lavandadecor.ru/
+---https://tddomovoy.ru/
+---https://ozon.ru
