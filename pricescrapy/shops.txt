@@ -7,73 +7,67 @@
 +https://provance.ru
 +https://provance-shop.ru/
 +https://myprovance.ru/
-
 +https://tvoydom.ru/
 +https://www.maxidom.ru/
-
-
-
-+https://hoff.ru/		
++https://hoff.ru/
 +https://accessoriesforhome.ru/
 +https://tescoma-shop.ru/
 +https://www.holodilnik.ru
 +https://www.eldorado.ru
-4.9:
-
 +https://wildberries.ru
 +https://allrightshop.ru
 +https://bazaropt.ru
 +https://axentia-shop.ru
 +https://vseblaga.ru
 +https://cavevo.ru
-----https://posudamos.ru
 +https://fg-buy.ru
 +https://tdgaem.ru
 +https://kibet-shop.ru
 +https://goodstoria.ru
-----https://sima-land.ru
 
-Формирование таблицы выгрузки			
-Добавление новых сайтов	https://seedspost.ru		
-	https://icecreamclub.ru		
-	https://vposude.ru/		
-	http://msk.tescoma-posuda.ru/		
-	https://variety-store.ru		
-	https://www.zelenyishar.ru/		
-	https://guruvkusa.ru		
-	https://8magazin.ru		
-	https://www.onlinetrade.ru/		
-	www.fedsp.com		
-Добавление новых сайтов	www.madeo.ru		
-	https://just-tea.ru/		
-	www.tea-vip.ru		
-	http://www.coffee-shop.ru/		
-	http://heladiv.ru		
-	https://www.coffeemanich.ru		
-	https://www.rusteaco.ru		
-	https://coffeespace.ru		
-	https://gutenberg.ru		
-	https://coffeespace.ru		
-Добавление новых сайтов	http://www.tea-coffee.ru		
-	https://www.coffee-butik.ru		
-	https://kofe-kofe.ru		
-	https://kupi-coffe.ru		
-	https://www.mugduo.ru		
-	https://101tea.ru		
-	https://autocoffee.ru		
-	https://bonespresso.ru		
-	posudarstvo.ru		
-	yarmarka-podarkov.ru		
-Добавление новых сайтов	posuda-bohemia.ru		
-	uytterra.ru		
-	kibet-shop.ru		
-	соскидкой.москва		
-	loveposuda.ru		
-	posuda.ru		
-	mrdom.ru		
-	myshop.ru		
-	dommo.ru		
-	musglass.ru		
+https://seedspost.ru
+https://icecreamclub.ru
+https://vposude.ru/
+http://msk.tescoma-posuda.ru/
+https://variety-store.ru
+https://www.zelenyishar.ru/
+https://guruvkusa.ru
+https://8magazin.ru
+https://www.onlinetrade.ru/
+www.fedsp.com
+www.madeo.ru
+https://just-tea.ru/
+www.tea-vip.ru
+http://www.coffee-shop.ru/
+http://heladiv.ru
+https://www.coffeemanich.ru
+https://www.rusteaco.ru
+https://coffeespace.ru
+https://gutenberg.ru
+https://coffeespace.ru
+http://www.tea-coffee.ru
+https://www.coffee-butik.ru
+https://kofe-kofe.ru
+https://kupi-coffe.ru
+https://www.mugduo.ru
+https://101tea.ru
+https://autocoffee.ru
+https://bonespresso.ru
+posudarstvo.ru
+yarmarka-podarkov.ru
+posuda-bohemia.ru
+uytterra.ru
+kibet-shop.ru
+соскидкой.москва
+loveposuda.ru
+posuda.ru
+mrdom.ru
+myshop.ru
+dommo.ru
+musglass.ru
+
 ---https://lavandadecor.ru/
 ---https://tddomovoy.ru/
 ---https://ozon.ru
+----https://posudamos.ru
+----https://sima-land.ru

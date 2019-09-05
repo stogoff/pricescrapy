@@ -117,6 +117,7 @@ for r, d, f in os.walk(path):
 files.sort()
 INPUT_FILENAME = files[-1]
 OUTPUT_FILENAME = 'static/result{}.csv'.format(INPUT_FILENAME[-14:-4])
+OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(INPUT_FILENAME[-14:-4])
 print(INPUT_FILENAME)
 time.sleep(1)
 

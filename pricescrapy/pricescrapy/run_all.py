@@ -3,22 +3,24 @@ from scrapy.utils.project import get_project_settings
 from scrapy.crawler import CrawlerProcess
 import sys
 import os.path
-#from spiders.mirposudy import MirposudySpider
-#from spiders.posuda_pro import PosudaProSpider
-#from spiders.projecthotel import ProjecthotelSpider
-#from spiders.rposuda import RposudaSpider
-#from spiders.masterglass import MasterglassSpider
+import pandas as pd
+
+# from spiders.mirposudy import MirposudySpider
+# from spiders.posuda_pro import PosudaProSpider
+# from spiders.projecthotel import ProjecthotelSpider
+# from spiders.rposuda import RposudaSpider
+# from spiders.masterglass import MasterglassSpider
 
 
-#t1 = os.path.getmtime('/tmp/uploads/input.txt')
-#t2 = os.path.getmtime('static/result.csv')
-#if t2>t1:
+# t1 = os.path.getmtime('/tmp/uploads/input.txt')
+# t2 = os.path.getmtime('static/result.csv')
+# if t2>t1:
 #    print('old')
 #    sys.exit()
-#file = open('static/result.csv', 'w')
-#file.close()
+# file = open('static/result.csv', 'w')
+# file.close()
 process = CrawlerProcess(get_project_settings())
-#print(process.settings['INPUT_FILENAME'][-14:-4])
+# print(process.settings['INPUT_FILENAME'][-14:-4])
 outfile = process.settings['OUTPUT_FILENAME']
 if os.path.isfile(outfile):
     print(outfile)
@@ -35,7 +37,7 @@ process.crawl('anuk')
 process.crawl('provance')
 process.crawl('provance-shop')
 process.crawl('myprovance')
-#process.crawl('lavandadecor')
+# process.crawl('lavandadecor')
 process.crawl('tvoydom')
 process.crawl('maxidom')
 
@@ -55,11 +57,27 @@ process.crawl('fg-buy')
 process.crawl('tdgaem')
 process.crawl('kibet-shop')
 process.crawl('goodstoria')
-#process.crawl()
-#process.crawl()
-#process.crawl()
-process.start() # the script will block here until all crawling jobs are finished
+# process.crawl()
+# process.crawl()
+# process.crawl()
+process.start()  # the script will block here until all crawling jobs are finished
+
+out_xls = process.settings['OUTPUT_XLSX_FILENAME']
+
+
+def return_hyperlink(x):
+    return '=HYPERLINK("{0}", {1})'.format(x['link'], x['price'])
+
+
+df = pd.read_csv(outfile, delimiter=';', header=None,
+                 names=['art', 'title', 'price', 'shop', 'link'])
+df['shop_price'] = df.apply(return_hyperlink, axis=1)
+dfp = pd.pivot_table(df, values=['shop_price'], index='art', columns='shop', aggfunc='first')
+print(dfp.iloc[0, 3])
+dfp.to_excel(out_xls)
+
 file = open(outfile, 'a')
 file.write("\nend of file\n")
 file.close()
+
 print("Done.")
