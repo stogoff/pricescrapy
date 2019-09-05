@@ -5,7 +5,7 @@ def return_hyperlink(x):
     return '=HYPERLINK("{0}", {1})'.format(x['link'], x['price'])
 
 
-df = pd.read_csv('static/result1566972765.csv', delimiter=';', header=None,
+df = pd.read_csv('static/test.csv', delimiter=';', header=None,
                  names=['art', 'title', 'price', 'shop', 'link'])
 df['linkedprice'] = df.apply(return_hyperlink, axis=1)
 
