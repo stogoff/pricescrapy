@@ -5,20 +5,7 @@ import sys
 import os.path
 import pandas as pd
 
-# from spiders.mirposudy import MirposudySpider
-# from spiders.posuda_pro import PosudaProSpider
-# from spiders.projecthotel import ProjecthotelSpider
-# from spiders.rposuda import RposudaSpider
-# from spiders.masterglass import MasterglassSpider
 
-
-# t1 = os.path.getmtime('/tmp/uploads/input.txt')
-# t2 = os.path.getmtime('static/result.csv')
-# if t2>t1:
-#    print('old')
-#    sys.exit()
-# file = open('static/result.csv', 'w')
-# file.close()
 process = CrawlerProcess(get_project_settings())
 # print(process.settings['INPUT_FILENAME'][-14:-4])
 outfile = process.settings['OUTPUT_FILENAME']
@@ -57,6 +44,18 @@ process.crawl('fg-buy')
 process.crawl('tdgaem')
 process.crawl('kibet-shop')
 process.crawl('goodstoria')
+process.crawl('icecreamclub')
+process.crawl('msk-tescoma-posuda')
+process.crawl('variety-store')
+process.crawl('zelenyishar')
+process.crawl('guruvkusa')
+process.crawl('8magazin')
+# process.crawl()
+# process.crawl()
+# process.crawl()
+# process.crawl()
+# process.crawl()
+# process.crawl()
 # process.crawl()
 # process.crawl()
 # process.crawl()
