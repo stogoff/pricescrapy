@@ -16,10 +16,8 @@ class AxentiaShopSpider(scrapy.Spider):
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace('.00', '').replace(',00', '')
                 title = line.strip().split(';')[2]
-
                 print(art)
                 url = self.search.format(brand, art)
-                print(url)
                 yield scrapy.Request(url=url,
                                      meta={'art': art, 'brand': brand, 'title':title},
                                      callback=self.parse)
@@ -46,7 +44,6 @@ class AxentiaShopSpider(scrapy.Spider):
                        }
         except IndexError: ## Нет в наличии
             try:
-                print("**************+++++++++++++++++++")
                 div = response.css('div.catalog-item_inner')[0]
                 title = div.css('div.catalog-item-name').css('a::text').get()
                 link = 'https://axentia-shop.ru' + div.css('div.catalog-item-name').css('a').xpath('@href').get()

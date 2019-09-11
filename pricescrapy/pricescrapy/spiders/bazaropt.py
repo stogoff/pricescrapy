@@ -20,7 +20,6 @@ class BazaroptSpider(scrapy.Spider):
                 # query = "{} {}".format(art,title)
                 print(art)
                 url = self.search.format(brand, title)
-                print(url)
                 yield scrapy.Request(url=url,
                                      meta={'art': art, 'brand': brand, 'title':title},
                                      callback=self.parse)

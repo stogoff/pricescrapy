@@ -55,8 +55,6 @@ class CavevoSpider(scrapy.Spider):
                                      callback=self.parse_item)
         if not items:
             if not response.meta['rec']:
-                print('************+++++++++++++///////',art)
-
                 titleplus = '+'.join(tit.split(' '))
 
                 url = self.search.format(brand, titleplus)

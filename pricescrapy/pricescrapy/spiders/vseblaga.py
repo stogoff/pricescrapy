@@ -20,7 +20,6 @@ class VseblagaSpider(scrapy.Spider):
                 # query = "{} {}".format(art,title)
                 print(art)
                 url = self.search.format(brand,art, title)
-                print(url)
                 yield scrapy.Request(url=url,
                                      meta={'art': art, 'brand': brand, 'title':title},
                                      callback=self.parse)
@@ -39,7 +38,6 @@ class VseblagaSpider(scrapy.Spider):
             if w in words:
                 score += 1
         s = score / len(words)
-        print(s)
         if s > 0.49:
             link = 'http://www.vseblaga.ru' + div.css('h3').css('a').xpath('@href').get()
             shop = self.name

@@ -19,7 +19,6 @@ class TdgaemSpider(scrapy.Spider):
                 titleplus = '+'.join(title.split(' '))
                 print(art)
                 url = self.search.format(brand,  titleplus)
-                print(url)
                 yield scrapy.Request(url=url,
                                      meta={'art': art, 'brand': brand, 'title': title},
                                      callback=self.parse)
@@ -34,16 +33,12 @@ class TdgaemSpider(scrapy.Spider):
         t = re.sub('[^0-9a-zA-Zа-яА-Я]+',' ', title)
         words = re.split(r'\s+', t.lower())
         score = 0
-        print(words)
         if brand.lower() in words:
             score += 1
         for w in re.split(r'\s+', tit.lower()):
-            print(w)
             if w in words:
-                print('!')
                 score += 1
         s = score / len(words)
-        print(s)
         if s > 0.49:
             link = 'http://tdgaem.ru' + div.css('a.product-link').xpath('@href').get()
             shop = self.name

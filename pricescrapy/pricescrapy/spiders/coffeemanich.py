@@ -38,7 +38,6 @@ class CoffeemanichSpider(scrapy.Spider):
         brand = response.meta['brand']
         tit = response.meta['title']
         for link in response.css('div.search-item').css('h4').css('a::attr(href)').getall():
-            print('*******************',link)
             yield scrapy.Request(url='https://www.coffeemanich.ru' + link,
                              meta={'art': art, 'brand': brand, 'title': tit},
                              callback=self.parse_item)

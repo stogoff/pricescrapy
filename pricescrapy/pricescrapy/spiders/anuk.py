@@ -53,14 +53,11 @@ class AnukSpider(scrapy.Spider):
         for divtext in response.css('div.catalog-properties::text').getall():
             if divtext[:7] == 'Артикул':
                 found_art = divtext[9:]
-                print('foundart:{}:'.format(found_art))
         if found_art == art:
             title = response.css('h1::text').get().strip()
             price = response.css('div.item-current-price').css('b::text').get()
             price = re.sub(r'\s+', '', price)
-
             price = re.match(r'\d+', price).group(0)
-            print("*******",price)
             shop = 'Anuk-Anuk'
             yield {'title': title,
                    'link': link,

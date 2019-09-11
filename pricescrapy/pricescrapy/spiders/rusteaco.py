@@ -38,7 +38,6 @@ class RusteacoSpider(scrapy.Spider):
         brand = response.meta['brand']
         tit = response.meta['title']
         for link in response.css('div.search-item').css('a.title::attr(href)').getall():
-            print('*******************', link)
             yield scrapy.Request(url=self.start_urls[0] + link,
                                  meta={'art': art, 'brand': brand, 'title': tit},
                                  callback=self.parse_item)
