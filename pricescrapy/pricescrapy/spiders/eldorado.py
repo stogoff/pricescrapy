@@ -5,7 +5,7 @@ import re
 class EldoradoSpider(scrapy.Spider):
     name = 'eldorado'
     allowed_domains = ['eldorado.ru']
-    start_urls = ['http://eldorado.ru/']
+    start_urls = ['https://eldorado.ru/']
 
     search = 'https://www.eldorado.ru/search/catalog.php?q={}+{}&category='
 
@@ -19,7 +19,7 @@ class EldoradoSpider(scrapy.Spider):
                 print(art)
                 url = self.search.format(brand, art)
                 yield scrapy.Request(url=url,
-                                     headers={'Referer':'https://eldorado.ru/'},
+                                     headers={'Referer': self.start_urls[0]},
                                      meta={'art': art, 'brand': brand}, callback=self.parse)
 
     def parse(self, response):

@@ -6,7 +6,7 @@ import re
 class CavevoSpider(scrapy.Spider):
     name = 'cavevo'
     allowed_domains = ['cavevo.ru']
-    start_urls = ['http://cavevo.ru/']
+    start_urls = ['https://cavevo.ru/']
 
     search = 'https://cavevo.ru/catalog/?q={}+{}&submit=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8'
 

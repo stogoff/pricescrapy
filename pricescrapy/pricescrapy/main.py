@@ -17,11 +17,13 @@ users = {
     "susan": generate_password_hash("bye")
 }
 
+
 @auth.verify_password
 def verify_password(username, password):
     if username in users:
         return check_password_hash(users.get(username), password)
     return False
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -48,10 +50,13 @@ def upload_file():
             # filename = secure_filename(file.filename)
             timestamp = str(int(time.time()))
             link = '/static/result{}.csv'.format(timestamp)
+            xlink = '/static/result{}.xlsx'.format(timestamp)
             fn = 'in{}.txt'.format(timestamp)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], fn))
-            flash(Markup('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через несколько минут \
-                   вы сможете скачать файл результата.'.format(fn, link)))
+            flash(Markup('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через некоторое время,  \
+                        зависящее от объема входного файла (при 1000 строк - около часа), \
+                        вы сможете скачать файл результата. \
+                        <a href="{}">Здесь будет доступна сводная таблица.</a> '.format(fn, link, xlink)))
             return redirect('/')
         else:
             flash('Разрешенный тип файла: txt')
