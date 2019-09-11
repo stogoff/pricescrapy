@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import sys
-from scrapy.utils.response import open_in_browser
+#import sys
+#from scrapy.utils.response import open_in_browser
 
 class TescomaShopSpider(scrapy.Spider):
     name = 'tescoma-shop'
@@ -40,7 +40,7 @@ class TescomaShopSpider(scrapy.Spider):
                 title = table.css('td.td-cat-link').css('a::text').get()
                 link = table.css('td.td-cat-link').css('a').xpath('@href').get()
                 shop = self.name
-                price = table.css('span.price::text').get().strip()
+                price = table.css('span.price::text').getall()[-1].strip()
                 yield {'title': title,
                        'link': link,
                        'price': price,
