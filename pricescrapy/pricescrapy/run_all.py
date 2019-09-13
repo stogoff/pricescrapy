@@ -5,7 +5,6 @@ import sys
 import os.path
 import pandas as pd
 
-
 process = CrawlerProcess(get_project_settings())
 # print(process.settings['INPUT_FILENAME'][-14:-4])
 outfile = process.settings['OUTPUT_FILENAME']
@@ -16,49 +15,21 @@ if os.path.isfile(outfile):
     sys.exit()
 file = open(outfile, 'w')
 file.close()
+group1 = ['8magazin', 'accessoriesforhome', 'cavevo', 'eldorado', 'guruvkusa', 'hoff', 'holodilnik', 'icecreamclub',
+          'maxidom', 'mirposudy', 'msk-tescoma-posuda', 'projecthotel', 'tescoma-shop', 'tvoydom', 'variety-store',
+          'vseblaga', 'wildberries', 'zelenyishar',]
+group2 = ['posuda-pro', 'anuk', 'provance', 'provance-shop', 'myprovance', 'rposuda', 'masterglass', 'allrightshop',
+          'bazaropt', 'axentia-shop', 'fg-buy', 'tdgaem', 'kibet-shop', 'goodstoria', 'just-tea', 'tea-vip',
+          'coffeemanich', 'rusteaco', 'coffeespace', 'gutenberg', 'autocoffee', 'coffee-butik', 'kofe-kofe', 'mugduo',
+          'posudarstvo', 'tea-coffee',
+          ]
 if main_brand == 'tescoma':
-    process.crawl('8magazin')
-    process.crawl('accessoriesforhome')
-    process.crawl('cavevo')
-    process.crawl('eldorado')
-    process.crawl('guruvkusa')
-    process.crawl('hoff')
-    process.crawl('holodilnik')
-    process.crawl('icecreamclub')
-    process.crawl('maxidom')
-    process.crawl('msk-tescoma-posuda')
-    process.crawl('tescoma-shop')
-    process.crawl('tvoydom')
-    process.crawl('variety-store')
-    process.crawl('vseblaga')
-    process.crawl('wildberries')
-    process.crawl('zelenyishar')
-    process.crawl('mirposudy')
-    process.crawl('projecthotel')
+    for shop in group1:
+        process.crawl(shop)
 else:
-    process.crawl('posuda-pro')
-    process.crawl('anuk')
-    process.crawl('provance')
-    process.crawl('provance-shop')
-    process.crawl('myprovance')
-    process.crawl('rposuda')
-    process.crawl('masterglass')
-    process.crawl('allrightshop')
-    process.crawl('bazaropt')
-    process.crawl('axentia-shop')
-    process.crawl('fg-buy')
-    process.crawl('tdgaem')
-    process.crawl('kibet-shop')
-    process.crawl('goodstoria')
-    process.crawl('just-tea')
-    process.crawl('tea-vip')
-    process.crawl('coffeemanich')
-    process.crawl('rusteaco')
-    process.crawl('coffeespace')
-    process.crawl('gutenberg')
-# process.crawl()
-# process.crawl()
-# process.crawl()
+    for shop in group2:
+        process.crawl(shop)
+
 process.start()  # the script will block here until all crawling jobs are finished
 
 out_xls = process.settings['OUTPUT_XLSX_FILENAME']

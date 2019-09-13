@@ -5,7 +5,7 @@ import re
 class GutenbergSpider(scrapy.Spider):
     name = 'gutenberg'
     allowed_domains = ['gutenberg.ru']
-    start_urls = ['http://gutenberg.ru/']
+    start_urls = ['https://gutenberg.ru']
     search = "https://gutenberg.ru/catalog/?q={}&how=r"
 
     def start_requests(self):
@@ -32,7 +32,7 @@ class GutenbergSpider(scrapy.Spider):
 
         for div in response.css('div.catalog_item_wrapp'):
             title = div.css('div.item-title').css('a').css('span::text').get().strip()
-            link = div.css('div.item-title').css('a::attr(href)').get()
+            link = self.start_urls[0] + div.css('div.item-title').css('a::attr(href)').get()
             price = response.css('span.price_value::text').get()
             price = re.sub(r',|\s+', '', price)
             price = re.match(r'\d+\.*\d*', price).group(0)
