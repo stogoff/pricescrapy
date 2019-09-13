@@ -17,14 +17,18 @@ file = open(outfile, 'w')
 file.close()
 group1 = ['8magazin', 'accessoriesforhome', 'cavevo', 'eldorado', 'guruvkusa', 'hoff', 'holodilnik', 'icecreamclub',
           'maxidom', 'mirposudy', 'msk-tescoma-posuda', 'projecthotel', 'tescoma-shop', 'tvoydom', 'variety-store',
-          'vseblaga', 'wildberries', 'zelenyishar',]
+          'vseblaga', 'wildberries', 'zelenyishar', ]
 group2 = ['posuda-pro', 'anuk', 'provance', 'provance-shop', 'myprovance', 'rposuda', 'masterglass', 'allrightshop',
-          'bazaropt', 'axentia-shop', 'fg-buy', 'tdgaem', 'kibet-shop', 'goodstoria', 'just-tea', 'tea-vip',
-          'coffeemanich', 'rusteaco', 'coffeespace', 'gutenberg', 'autocoffee', 'coffee-butik', 'kofe-kofe', 'mugduo',
-          'posudarstvo', 'tea-coffee',
+          'bazaropt', 'axentia-shop', 'fg-buy', 'tdgaem', 'kibet-shop', 'goodstoria', 'posudarstvo',
+          ]
+group3 = ['just-tea', 'tea-vip', 'coffeemanich', 'rusteaco', 'coffeespace', 'tea-coffee', 'gutenberg', 'autocoffee',
+          'coffee-butik', 'kofe-kofe', 'mugduo',
           ]
 if main_brand == 'tescoma':
     for shop in group1:
+        process.crawl(shop)
+elif main_brand in ('madeo', 'gutenberg'):
+    for shop in group3:
         process.crawl(shop)
 else:
     for shop in group2:
