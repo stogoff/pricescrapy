@@ -13,7 +13,7 @@ class OzonSpider(scrapy.Spider):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 brand = line.strip().split(';')[0]
-                art = line.strip().split(';')[1].replace('.00', '').replace(',00', '')
+                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
                 print(art)

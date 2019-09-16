@@ -3,46 +3,47 @@ import scrapy
 import re
 
 
-class BazaroptSpider(scrapy.Spider):
-    name = 'bazaropt'
-    allowed_domains = ['bazaropt.ru']
-    start_urls = ['http://bazaropt.ru/']
-
-    search = 'https://bazaropt.ru/index.php?route=product/search&search={} {}'
+class SoskidkoiSpider(scrapy.Spider):
+    name = 'soskidkoi'
+    allowed_domains = ['соскидкой.москва']
+    start_urls = ['https://соскидкой.москва']
+    search = "https://соскидкой.москва/search/?query={}+{}"
 
     def start_requests(self):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 # print(line.strip().split(';'))
+
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
+
                 title = line.strip().split(';')[2]
-                # query = "{} {}".format(art,title)
+                # titleplus = '+'.join(title.split(' '))
                 print(art)
-                url = self.search.format(brand, title)
+                url = self.search.format(brand, art)
                 yield scrapy.Request(url=url,
-                                     meta={'art': art, 'brand': brand, 'title':title},
+                                     meta={'art': art, 'brand': brand, 'title': title, 'rec': False},
                                      callback=self.parse)
 
     def parse(self, response):
         art = response.meta['art']
         brand = response.meta['brand']
         tit = response.meta['title']
-        for div in response.css('div.product-thumb'):
-            title = div.css('div.caption').css('a::text').get()
-            words = re.split(r'\s+', title.lower())
-            score = 0
-            if brand.lower() in words:
-                score += 1
-            for w in re.split(r'\s+', tit.lower()):
-                if w in words:
-                    score += 1
-            s = score / len(words)
+        for div in response.css('div.product'):
 
-            if s > 0.5:
-                link = div.css('div.caption').css('a').xpath('@href').get()
+            title = div.css('div.h5').css('a::attr(title)').get()
+            article = ''
+            for tr in div.css('tr'):
+                if tr.css('td.name::text').get() == 'Артикул':
+                    article = tr.css('td.value').css('div.listfeatures-values::text').get().strip()
+                    break
+
+
+            if art in article:
+
+                link = self.start_urls[0] + div.css('div.h5').css('a::attr(href)').get()
                 shop = self.name
-                price = div.css('span.common-price::text').get()
+                price = div.css('span.price::text').get()
                 price = re.sub(r'\s+', '', price)
                 price = re.match(r'\d+\.*\d*', price).group(0)
                 yield {'title': title,
@@ -51,4 +52,3 @@ class BazaroptSpider(scrapy.Spider):
                        'shop': shop,
                        'art': art
                        }
-

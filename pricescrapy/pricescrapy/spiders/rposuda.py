@@ -12,7 +12,7 @@ class RposudaSpider(scrapy.Spider):
                 # print(line.strip().split(';'))
 
                 brand = line.strip().split(';')[0]
-                art = line.strip().split(';')[1]
+                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
                 print(art)

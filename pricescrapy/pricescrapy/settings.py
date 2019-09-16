@@ -121,7 +121,7 @@ OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(INPUT_FILENAME[-14:-4])
 print(INPUT_FILENAME)
 with open(INPUT_FILENAME) as f:
     l = f.readline()
-MAIN_BRAND = l.split(';')[0].lower()
-print(MAIN_BRAND)
+MAIN_BRAND = l.split(';')[0].lower().strip()
+print("*{}*".format(MAIN_BRAND))
 time.sleep(1)
 
