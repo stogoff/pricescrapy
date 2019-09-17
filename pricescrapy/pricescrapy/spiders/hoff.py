@@ -23,7 +23,10 @@ class HoffSpider(scrapy.Spider):
 
     def parse(self, response):
         art = response.meta['art']
-        quantity = response.css('time.elem-header__date::text').get()[-7:-6]
+        try:
+            quantity = response.css('time.elem-header__date::text').get()[-7:-6]
+        except:
+            quantity = ''
         if quantity == '1':
             for div in response.css('div.elem-product'):
                 title = div.css('div.elem-product__links')[0].css('a::text').get().strip()
