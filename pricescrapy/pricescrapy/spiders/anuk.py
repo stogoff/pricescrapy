@@ -58,7 +58,7 @@ class AnukSpider(scrapy.Spider):
             price = response.css('div.item-current-price').css('b::text').get()
             price = re.sub(r'\s+', '', price)
             price = re.match(r'\d+', price).group(0)
-            shop = 'Anuk-Anuk'
+            shop = self.name
             yield {'title': title,
                    'link': link,
                    'price': price,
