@@ -3,7 +3,7 @@ import scrapy
 import re
 
 class A8magazinSpider(scrapy.Spider):
-    name = '8magazin'
+    name = 'a8magazin'
     allowed_domains = ['8magazin.ru']
     start_urls = ['https://8magazin.ru']
 
