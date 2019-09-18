@@ -22,6 +22,16 @@
 	<form method="post" action="/" enctype="multipart/form-data">
 		<dl>
 			<p>
+				{% for key, val in shop_list.items() %}
+
+
+				<input type="checkbox" name="{{ key }}" value="{{ val }}"
+					   {% if val == '1' %} checked {% endif %}>
+				{{ key }}<br>
+				{% endfor %}
+
+			</p>
+			<p>
 				<input type="file" name="file" autocomplete="off" required>
 			</p>
 		</dl>

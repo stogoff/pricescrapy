@@ -1,12 +1,14 @@
 import os
+import configparser
 # import magic
-import urllib.request
+#import urllib.request
 from app import app
 from flask import Flask, flash, request, redirect, render_template, Markup
 from werkzeug.utils import secure_filename
 import time
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
+from gen_config import createConfig
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', ])
 
@@ -16,6 +18,8 @@ users = {
     "prof": generate_password_hash("torg"),
     "susan": generate_password_hash("bye")
 }
+
+
 
 
 @auth.verify_password
@@ -32,13 +36,30 @@ def allowed_file(filename):
 @app.route('/')
 @auth.login_required
 def upload_form():
-    return render_template('upload.html')
+    shop_list = {}
+    config = configparser.ConfigParser()
+    config.read('shops.cfg')
+    for key, value in config.items('Shops'):
+        shop_list[key] = value
+    return render_template('upload.html', shop_list=shop_list)
 
 
 @app.route('/', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
+        config = configparser.ConfigParser()
+        config.read('shops.cfg')
+        for key, value in config.items('Shops'):
+            if not(request.form.get(key)):
+                config.set("Shops", key, '0')
+                print(key, 0)
+            else:
+                config.set("Shops", key, '1')
+                print(key,1)
+
+        with open('shops.cfg', "w") as config_file:
+            config.write(config_file)
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
@@ -64,4 +85,4 @@ def upload_file():
 
 
 if __name__ == "__main__":
-    app.run(host="167.71.37.44")
+    app.run()  # host="167.71.37.44")
