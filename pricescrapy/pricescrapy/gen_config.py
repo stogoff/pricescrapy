@@ -11,8 +11,8 @@ def createConfig(path):
     p = spiders
     config.add_section("Shops")
     for importer, modname, ispkg in pkgutil.iter_modules(p.__path__):
-        shop_name = modname
-        config.set("Shops", shop_name, '1')
+        shop_name = modname.replace('_','-')
+        config.set("Shops", shop_name, '0')
 
 
     with open(path, "w") as config_file:
