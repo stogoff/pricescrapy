@@ -29,7 +29,7 @@ class PosudaProSpider(scrapy.Spider):
                 price = re.sub(r'\s+', '', price)
                 price = re.match(r'\d+', price).group(0)
                 link = div.css('a.shop-item-title').xpath('@href').get()
-                shop = 'Посуда PRO'
+                shop = self.name
 
                 yield {'title': title,
                            'link': link,

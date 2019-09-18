@@ -33,7 +33,7 @@ class ProjecthotelSpider(scrapy.Spider):
                 price = re.sub(r'\,', '', price)
                 #price = re.match(r'\d+', price).group(0)
                 link = 'https://projecthotel.ru' + div.css('a').xpath('@href').get()
-                shop = 'проект 2015'
+                shop = self.name
 
                 yield {'title': title,
                        'link': link,

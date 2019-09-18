@@ -4,6 +4,13 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;
 }
+
+.multi {
+  -webkit-column-count: 4; /* Old Chrome, Safari and Opera */
+  -moz-column-count: 4; /* Old Firefox */
+  column-count: 4;
+}
+
 /*
  * Formatting the header area
  */

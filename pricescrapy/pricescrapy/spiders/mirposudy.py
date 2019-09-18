@@ -31,7 +31,7 @@ class MirposudySpider(scrapy.Spider):
 
                 price = re.match(r'\d+', price).group(0)
                 link = 'http://mirposudy.ru' + div.css('a.offerCard__wrap').xpath('@href').get()
-                shop = 'Мир Посуды'
+                shop = self.name
 
                 yield {'title': title,
                        'link': link,

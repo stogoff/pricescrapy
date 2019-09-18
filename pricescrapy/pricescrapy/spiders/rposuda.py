@@ -39,7 +39,7 @@ class RposudaSpider(scrapy.Spider):
             price = re.sub(r'\s+', '', price)
 
             price = re.match(r'\d+', price).group(0)
-            shop = 'R посуда'
+            shop = self.name
             yield {'title': title,
                        'link': link,
                        'price': price,

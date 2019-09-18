@@ -26,7 +26,7 @@ class ProvanceSpider(scrapy.Spider):
         for div in response.css('div.ty-grid-list__item'):
             title = div.css('div.ty-grid-list__item-name').css('a::text').get()
             if art in title:
-                shop = 'provance'
+                shop = self.name
                 price = div.css('span.ty-price-num::text').get()
 
                 link = div.css('div.ty-grid-list__item-name').css('a').xpath('@href').get()

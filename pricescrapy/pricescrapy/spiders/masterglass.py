@@ -33,7 +33,7 @@ class MasterglassSpider(scrapy.Spider):
                 #price = re.sub(r'\,', '', price)
                 # price = re.match(r'\d+', price).group(0)
 
-                shop = 'masterglass'
+                shop = self.name
 
                 yield {'title': title,
                        'link': link,
