@@ -1,4 +1,5 @@
 /pricescrapy/pricescrapy/static/*.csv
+/pricescrapy/pricescrapy/shops.cfg
 /pricescrapy/dbs/
 /.idea/
 
