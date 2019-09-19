@@ -47,19 +47,18 @@ def upload_form():
 @app.route('/', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
-        # check if the post request has the file part
+        # edit the config file
         config = configparser.ConfigParser()
         config.read('shops.cfg')
         for key, value in config.items('Shops'):
             if not(request.form.get(key)):
                 config.set("Shops", key, '0')
-                print(key, 0)
             else:
                 config.set("Shops", key, '1')
-                print(key,1)
-
+                print(key)
         with open('shops.cfg', "w") as config_file:
             config.write(config_file)
+        # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
