@@ -27,15 +27,10 @@ class AnukSpider(scrapy.Spider):
     def after_login(self, response):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
-                # print(line.strip().split(';'))
-
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
                 title = line.strip().split(';')[2]
-                # query = "{} {}".format(art,title)
                 print(art)
-
-
 
                 url = "http://anuk-anuk.com/search/index.php?q={}&s=%CF%EE%E8%F1%EA".format(art)
                 yield scrapy.Request(url=url, meta={'art': art}, callback=self.parse_search)

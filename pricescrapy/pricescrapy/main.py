@@ -1,14 +1,17 @@
-import os
 import configparser
-# import magic
-#import urllib.request
-from app import app
-from flask import Flask, flash, request, redirect, render_template, Markup
-from werkzeug.utils import secure_filename
+import os
 import time
+
+from flask import Flask, flash, request, redirect, render_template, Markup
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
-from gen_config import createConfig
+
+UPLOAD_FOLDER = '/tmp/uploads'
+
+app = Flask(__name__)
+app.secret_key = "@$#secret%key&"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', ])
 

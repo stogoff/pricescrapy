@@ -10,8 +10,6 @@ class LavandadecorSpider(scrapy.Spider):
     def start_requests(self):
         with open('/tmp/uploads/input.txt') as f:
             for line in f.readlines():
-                # print(line.strip().split(';'))
-
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
                 title = line.strip().split(';')[2]

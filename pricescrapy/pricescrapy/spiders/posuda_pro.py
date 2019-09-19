@@ -10,12 +10,9 @@ class PosudaProSpider(scrapy.Spider):
     def start_requests(self):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
-                #print(line.strip().split(';'))
-
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
                 title = line.strip().split(';')[2]
-                #query = "{} {}".format(art,title)
                 print(art)
                 url = 'http://posuda-pro.ru/search/?module=search&searchword={}+{}+{}'.format(brand, art, title)
                 yield scrapy.Request(url=url, meta={'art': art}, callback=self.parse)

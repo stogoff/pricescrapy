@@ -1,13 +1,12 @@
-import scrapy
-from scrapy.utils.project import get_project_settings
-from scrapy.crawler import CrawlerProcess
-import sys
-import os.path
-import pandas as pd
 import configparser
+import os.path
+import sys
+
+import pandas as pd
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 
 process = CrawlerProcess(get_project_settings())
-# print(process.settings['INPUT_FILENAME'][-14:-4])
 outfile = process.settings['OUTPUT_FILENAME']
 main_brand = process.settings['MAIN_BRAND']
 if os.path.isfile(outfile):

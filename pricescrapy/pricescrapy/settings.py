@@ -120,8 +120,8 @@ OUTPUT_FILENAME = 'static/result{}.csv'.format(INPUT_FILENAME[-14:-4])
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(INPUT_FILENAME[-14:-4])
 print(INPUT_FILENAME)
 with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
-    l = f.readline()
-MAIN_BRAND = l.split(';')[0].lower().strip()
+    line = f.readline()
+MAIN_BRAND = line.split(';')[0].lower().strip()
 print("*{}*".format(MAIN_BRAND))
 time.sleep(1)
 

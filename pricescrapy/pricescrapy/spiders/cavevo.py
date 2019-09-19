@@ -7,15 +7,11 @@ class CavevoSpider(scrapy.Spider):
     name = 'cavevo'
     allowed_domains = ['cavevo.ru']
     start_urls = ['https://cavevo.ru/']
-
     search = 'https://cavevo.ru/catalog/?q={}+{}&submit=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8'
-
 
     def start_requests(self):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
-                # print(line.strip().split(';'))
-
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
 

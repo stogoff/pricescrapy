@@ -12,8 +12,6 @@ class CoffeemanichSpider(scrapy.Spider):
     def start_requests(self):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
-                # print(line.strip().split(';'))
-
                 brand = line.strip().split(';')[0]
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
 
