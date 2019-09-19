@@ -19,10 +19,8 @@ auth = HTTPBasicAuth()
 
 users = {
     "prof": generate_password_hash("torg"),
-    "susan": generate_password_hash("bye")
+    "admin": generate_password_hash("nimda")
 }
-
-
 
 
 @auth.verify_password
