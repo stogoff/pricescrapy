@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import scrapy
 import re
-from scrapy.utils.response import open_in_browser
+
+import scrapy
 
 
 class AnukSpider(scrapy.Spider):

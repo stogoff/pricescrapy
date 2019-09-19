@@ -28,7 +28,7 @@ class ProjecthotelSpider(scrapy.Spider):
             if art in div.css('div.article::text').get():
                 title = div.css('div.title::text').get()
                 price = div.css('div.price::text').get().strip()
-                price = re.sub(r'\,', '', price)
+                price = re.sub(r',', '', price)
                 #price = re.match(r'\d+', price).group(0)
                 link = 'https://projecthotel.ru' + div.css('a').xpath('@href').get()
                 shop = self.name

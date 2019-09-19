@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
+
 
 class MasterglassSpider(scrapy.Spider):
     name = 'masterglass'
@@ -18,24 +18,24 @@ class MasterglassSpider(scrapy.Spider):
                 data = {'m':'catalog','mode' :'l','ajax':'1','str':art}
                 yield scrapy.http.FormRequest(url=url, meta={'art': art}, formdata=data, callback=self.parse)
 
-
     def parse(self, response):
         art = response.meta['art']
         trows = response.css('tr')
+        shop = self.name
         if len(trows)>1:
             tr = trows[1]
             if art in tr.css('td')[3].css('font::text').get():
                 title = tr.css('td')[1].css('a::text').get()
                 link = 'https://projecthotel.ru' + tr.css('td')[1].css('a').xpath('@href').get()
-                price = tr.css('td')[6].css('a::text').get().strip()
-                #price = re.sub(r'\,', '', price)
-                # price = re.match(r'\d+', price).group(0)
-
-                shop = self.name
-
-                yield {'title': title,
-                       'link': link,
-                       'price': price,
-                       'shop': shop,
-                       'art': art
-                       }
+                try:
+                    price = tr.css('td')[6].css('a::text').get().strip()
+                    #price = re.sub(r'\,', '', price)
+                    # price = re.match(r'\d+', price).group(0)
+                    yield {'title': title,
+                           'link': link,
+                           'price': price,
+                           'shop': shop,
+                           'art': art
+                           }
+                except AttributeError:
+                    pass

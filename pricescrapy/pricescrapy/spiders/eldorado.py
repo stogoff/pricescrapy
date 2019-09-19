@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-import re
+
 
 class EldoradoSpider(scrapy.Spider):
     name = 'eldorado'

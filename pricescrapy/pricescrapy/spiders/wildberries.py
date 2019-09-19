@@ -2,6 +2,7 @@
 import scrapy
 import re
 
+
 class WildberriesSpider(scrapy.Spider):
     name = 'wildberries'
     allowed_domains = ['wildberries.ru']
@@ -19,7 +20,7 @@ class WildberriesSpider(scrapy.Spider):
                 print(art)
                 url = self.search.format(brand, title)
                 yield scrapy.Request(url=url,
-                                     meta={'art': art, 'brand': brand, 'title':title},
+                                     meta={'art': art, 'brand': brand, 'title': title},
                                      callback=self.parse)
 
     def parse(self, response):

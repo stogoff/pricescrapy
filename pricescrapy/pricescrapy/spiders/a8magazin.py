@@ -2,6 +2,7 @@
 import scrapy
 import re
 
+
 class A8magazinSpider(scrapy.Spider):
     name = 'a8magazin'
     allowed_domains = ['8magazin.ru']

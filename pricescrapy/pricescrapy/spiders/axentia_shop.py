@@ -2,6 +2,7 @@
 import scrapy
 import re
 
+
 class AxentiaShopSpider(scrapy.Spider):
     name = 'axentia-shop'
     allowed_domains = ['axentia-shop.ru']
@@ -18,7 +19,7 @@ class AxentiaShopSpider(scrapy.Spider):
                 print(art)
                 url = self.search.format(brand, art)
                 yield scrapy.Request(url=url,
-                                     meta={'art': art, 'brand': brand, 'title':title},
+                                     meta={'art': art, 'brand': brand, 'title': title},
                                      callback=self.parse)
 
     def parse(self, response):
@@ -36,12 +37,12 @@ class AxentiaShopSpider(scrapy.Spider):
             price = re.sub(r'\s+', '', price)
             price = re.match(r'\d+\.*\d*', price).group(0)
             yield {'title': title,
-                       'link': link,
-                       'price': price,
-                       'shop': shop,
-                       'art': art
-                       }
-        except IndexError: ## Нет в наличии
+                   'link': link,
+                   'price': price,
+                   'shop': shop,
+                   'art': art
+                   }
+        except IndexError:  ## Нет в наличии
             try:
                 div = response.css('div.catalog-item_inner')[0]
                 title = div.css('div.catalog-item-name').css('a::text').get()
@@ -50,11 +51,10 @@ class AxentiaShopSpider(scrapy.Spider):
                 price = re.sub(r'\s+', '', price)
                 price = re.match(r'\d+\.*\d*', price).group(0)
                 yield {'title': title,
-                           'link': link,
-                           'price': price,
-                           'shop': shop,
-                           'art': art
-                           }
+                       'link': link,
+                       'price': price,
+                       'shop': shop,
+                       'art': art
+                       }
             except IndexError:
                 pass
-

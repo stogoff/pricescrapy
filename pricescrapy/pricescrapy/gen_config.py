@@ -3,7 +3,7 @@ import spiders
 import configparser
 
 
-def createConfig(path):
+def create_config(path):
     """
     Create a config file
     """
@@ -21,6 +21,6 @@ def createConfig(path):
 
 if __name__ == "__main__":
     path = "shops.cfg"
-    createConfig(path)
+    create_config(path)
 
 

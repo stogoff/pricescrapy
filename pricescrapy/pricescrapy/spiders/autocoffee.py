@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import scrapy
 import re
-import sys
+
+import scrapy
+
 
 class AutocoffeeSpider(scrapy.Spider):
     name = 'autocoffee'

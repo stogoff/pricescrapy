@@ -13,7 +13,7 @@ app.secret_key = "@$#secret%key&"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', ])
+ALLOWED_EXTENSIONS = {'txt', 'csv'}
 
 auth = HTTPBasicAuth()
 
@@ -73,6 +73,7 @@ def upload_file():
             link = '/static/result{}.csv'.format(timestamp)
             xlink = '/static/result{}.xlsx'.format(timestamp)
             fn = 'in{}.txt'.format(timestamp)
+            print(file.filename, fn)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], fn))
             flash(Markup('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через некоторое время,  \
                         зависящее от объема входного файла и числа выбранных магазинов, \

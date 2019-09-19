@@ -38,9 +38,8 @@ class AllrightshopSpider(scrapy.Spider):
             for w in re.split(r'\s+', tit.lower()):
                 if w in words:
                     score += 1
-            s = score/len(words)
-            if s>0.5:
-
+            s = score / len(words)
+            if s > 0.5:
                 link = 'https://allrightshop.ru' + div.css('a.item-title').xpath('@href').get().strip()
                 shop = self.name
                 price = div.css('span.catalog-item-price::text').get()

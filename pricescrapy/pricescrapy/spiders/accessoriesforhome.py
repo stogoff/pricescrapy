@@ -2,6 +2,7 @@
 import scrapy
 import re
 
+
 class AccessoriesforhomeSpider(scrapy.Spider):
     name = 'accessoriesforhome'
     allowed_domains = ['accessoriesforhome.ru']
