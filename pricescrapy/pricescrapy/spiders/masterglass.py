@@ -24,10 +24,11 @@ class MasterglassSpider(scrapy.Spider):
         shop = self.name
         if len(trows)>1:
             tr = trows[1]
-            if art in tr.css('td')[3].css('font::text').get():
-                title = tr.css('td')[1].css('a::text').get()
-                link = 'https://projecthotel.ru' + tr.css('td')[1].css('a').xpath('@href').get()
-                try:
+            try:
+                if art in tr.css('td')[3].css('font::text').get():
+                    title = tr.css('td')[1].css('a::text').get()
+                    link = 'https://projecthotel.ru' + tr.css('td')[1].css('a').xpath('@href').get()
+
                     price = tr.css('td')[6].css('a::text').get().strip()
                     #price = re.sub(r'\,', '', price)
                     # price = re.match(r'\d+', price).group(0)
@@ -37,5 +38,5 @@ class MasterglassSpider(scrapy.Spider):
                            'shop': shop,
                            'art': art
                            }
-                except AttributeError:
-                    pass
+            except:
+                pass

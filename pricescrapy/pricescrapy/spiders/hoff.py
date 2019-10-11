@@ -23,7 +23,7 @@ class HoffSpider(scrapy.Spider):
         art = response.meta['art']
         try:
             quantity = response.css('time.elem-header__date::text').get()[-7:-6]
-        except IndexError:
+        except:
             quantity = ''
         if quantity == '1':
             for div in response.css('div.elem-product'):
