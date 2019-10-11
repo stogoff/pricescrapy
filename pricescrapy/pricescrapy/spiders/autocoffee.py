@@ -14,7 +14,7 @@ class AutocoffeeSpider(scrapy.Spider):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 brand = line.strip().split(';')[0]
-                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
+                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
 
                 title = line.strip().split(';')[2]
                 print(art)

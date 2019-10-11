@@ -14,7 +14,7 @@ class VseblagaSpider(scrapy.Spider):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 brand = line.strip().split(';')[0]
-                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '')
+                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 title = line.strip().split(';')[2].replace('"','')
                 print(art)
                 url = self.search.format(brand,art, title)
