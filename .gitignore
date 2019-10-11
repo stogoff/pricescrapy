@@ -1,7 +1,8 @@
 /pricescrapy/pricescrapy/static/*.csv
+/pricescrapy/pricescrapy/static/*.xlsx
 /pricescrapy/pricescrapy/shops.cfg
 /pricescrapy/dbs/
-/.idea/
+
 
 .ipynb_checkpoints/
 
