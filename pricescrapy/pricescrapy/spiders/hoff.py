@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+import re
 
 class HoffSpider(scrapy.Spider):
     name = 'hoff'
@@ -31,6 +31,7 @@ class HoffSpider(scrapy.Spider):
                 link = 'https://hoff.ru' + div.css('div.elem-product__links')[0].css('a').xpath('@href').get().strip()
                 shop = self.name
                 price = div.css('div.price-current::text').get().strip()
+                price = re.sub(r'\s+', '', price)
                 yield {'title': title,
                        'link': link,
                        'price': price,
