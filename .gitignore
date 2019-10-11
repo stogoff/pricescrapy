@@ -2,10 +2,7 @@
 /pricescrapy/pricescrapy/static/*.xlsx
 /pricescrapy/pricescrapy/shops.cfg
 /pricescrapy/dbs/
-
-
 .ipynb_checkpoints/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
