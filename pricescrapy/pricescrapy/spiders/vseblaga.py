@@ -26,32 +26,35 @@ class VseblagaSpider(scrapy.Spider):
         art = response.meta['art']
         brand = response.meta['brand']
         tit = response.meta['title']
-        div = response.css('div.product-small')[0]
-        title = div.css('h3').css('a').xpath('@title').get()
-        words = re.split(r'\s+', title.lower())
-        score = 0
-        if brand.lower() in words:
-            score += 1
-        for w in re.split(r'\s+', tit.lower()):
-            if w in words:
+        try:
+            div = response.css('div.product-small')[0]
+        except IndexError\
+                :
+            title = div.css('h3').css('a').xpath('@title').get()
+            words = re.split(r'\s+', title.lower())
+            score = 0
+            if brand.lower() in words:
                 score += 1
-        s = score / len(words)
-        if s > 0.49:
-            link = 'http://www.vseblaga.ru' + div.css('h3').css('a').xpath('@href').get()
-            shop = self.name
-            prices = div.css('span::text').getall()
-            if len(prices) > 2:
-                price = prices[2]
-            elif len(prices) ==1:
-                price = prices[0]
-            else:
-                price = '0'
-            price = re.sub(r'\s+', '', price)
-            price = re.match(r'\d+\.*\d*', price).group(0)
-            yield {'title': title,
-                   'link': link,
-                   'price': price,
-                   'shop': shop,
-                   'art': art
-                   }
+            for w in re.split(r'\s+', tit.lower()):
+                if w in words:
+                    score += 1
+            s = score / len(words)
+            if s > 0.49:
+                link = 'http://www.vseblaga.ru' + div.css('h3').css('a').xpath('@href').get()
+                shop = self.name
+                prices = div.css('span::text').getall()
+                if len(prices) > 2:
+                    price = prices[2]
+                elif len(prices) ==1:
+                    price = prices[0]
+                else:
+                    price = '0'
+                price = re.sub(r'\s+', '', price)
+                price = re.match(r'\d+\.*\d*', price).group(0)
+                yield {'title': title,
+                       'link': link,
+                       'price': price,
+                       'shop': shop,
+                       'art': art
+                       }
 
