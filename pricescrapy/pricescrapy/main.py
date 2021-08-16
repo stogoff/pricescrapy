@@ -86,4 +86,4 @@ def upload_file():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost")
+    app.run(host='95.217.153.139')#"localhost")
