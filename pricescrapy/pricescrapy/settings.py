@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import time
+
 # Scrapy settings for pricescrapy project
 #
 # For simplicity, this file contains only settings considered important or
@@ -16,21 +17,23 @@ SPIDER_MODULES = ['pricescrapy.spiders']
 NEWSPIDER_MODULE = 'pricescrapy.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0'
-
+USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0'
+# USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0'
+DUPEFILTER_DEBUG = True
+# DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 4
+CONCURRENT_REQUESTS = 1
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 10
+DOWNLOAD_DELAY = 10
 # The download delay setting will honor only one of:
-# CONCURRENT_REQUESTS_PER_DOMAIN = 16
-# CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 0
+CONCURRENT_REQUESTS_PER_IP = 0
 
 # Disable cookies (enabled by default)
 # COOKIES_ENABLED = False
@@ -39,10 +42,10 @@ ROBOTSTXT_OBEY = False
 # TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-# }
+DEFAULT_REQUEST_HEADERS = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+}
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
@@ -103,6 +106,18 @@ SPIDER_SETTINGS = [
     }
 ]
 
+# SELENIUM
+# for firefox
+from shutil import which
+#SELENIUM_DRIVER_NAME = 'chrome'
+#SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
+SELENIUM_DRIVER_NAME = 'firefox'
+SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
+SELENIUM_DRIVER_ARGUMENTS = ['-headless']
+DOWNLOADER_MIDDLEWARES = {
+     'scrapy_selenium.SeleniumMiddleware': 800
+     }
+# SELENIUM END
 
 
 path = '/tmp/uploads'
@@ -124,4 +139,3 @@ with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
 MAIN_BRAND = line.split(';')[0].lower().strip()
 print("*{}*".format(MAIN_BRAND))
 time.sleep(1)
-
