@@ -13,6 +13,8 @@ class EldoradoSpider(scrapy.Spider):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
                 brand = line.strip().split(';')[0]
+                if brand.lower == 'frap':
+                    continue
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)

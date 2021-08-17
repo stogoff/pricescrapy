@@ -23,6 +23,8 @@ class MvideoSpider(scrapy.Spider):
             for line in f.readlines():
                 try:
                     brand = line.strip().split(';')[0]
+                    if brand.lower == 'frap':
+                        continue
                     art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 except IndexError:
                     continue

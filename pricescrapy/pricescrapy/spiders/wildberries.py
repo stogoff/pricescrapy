@@ -25,6 +25,8 @@ class WildberriesSpider(scrapy.Spider):
             for line in f.readlines():
                 try:
                     brand = line.strip().split(';')[0]
+                    if brand.lower == 'tescoma':
+                        continue
                     art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 except IndexError:
                     continue

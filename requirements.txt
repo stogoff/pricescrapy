@@ -38,5 +38,6 @@ w3lib>=1.22.0
 Werkzeug>=1.0.1
 zope.interface>=5.2.0
 
-beautifulsoup4~=4.9.3
-selenium~=3.141.0
+beautifulsoup4>=4.9.3
+selenium>=3.141.0
+scrapy-selenium>=0.0.7
