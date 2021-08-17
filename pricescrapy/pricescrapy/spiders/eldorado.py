@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from scrapy_selenium import SeleniumRequest
 
 
 class EldoradoSpider(scrapy.Spider):
@@ -20,9 +21,13 @@ class EldoradoSpider(scrapy.Spider):
                 # query = "{} {}".format(art,title)
                 self.logger.info('{}'.format(art))
                 url = self.search.format(brand, art)
-                yield scrapy.Request(url=url,
-                                     headers={'Referer': self.start_urls[0]},
-                                     meta={'art': art, 'brand': brand}, callback=self.parse)
+                self.logger.info('{}'.format(url))
+                yield SeleniumRequest(url=url,
+                                      dont_filter=True,
+                                      screenshot=False,
+                                      headers={'Referer': self.start_urls[0]},
+                                      meta={'art': art, 'brand': brand},
+                                      callback=self.parse)
 
     def parse(self, response):
         art = response.meta['art']
@@ -36,8 +41,9 @@ class EldoradoSpider(scrapy.Spider):
                         break
             for a in response.css('a'):
                 if 'data-dy' in a.attrib.keys():
-                    link = "https://www.eldorado.ru/" + a.attrib['href']
-                    title = a.css("::text").get()
+                    if a.attrib['data-dy'] == 'title':
+                        link = "https://www.eldorado.ru" + a.attrib['href']
+                        title = a.css("::text").get()
             if art not in link:
                 return None
             yield {'title': title,
