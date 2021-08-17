@@ -47,7 +47,8 @@ class OzonSpider(scrapy.Spider):
                     if s.attrib['style'] in ['color:#f91155;',  'color:#001a34;']:
                         price = s.css('::text').get()
                         break
-            price = price.replace('\u202f', '').replace('₽', '')
+            price = price.replace('\u202f', '').replace('₽', '').replace(' ','')
+
             yield {'title': title,
                    'link': link,
                    'price': price,
