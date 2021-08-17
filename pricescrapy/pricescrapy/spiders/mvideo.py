@@ -30,17 +30,17 @@ class MvideoSpider(scrapy.Spider):
                     continue
                 url = self.search.format(brand, art)
                 self.urllist.append([url, art])
-        print("Goods for search:", len(self.urllist))
+        self.logger.info(' Goods for search:{}'.format(len(self.urllist)))
         yield self.next_art()
 
     def next_art(self):
         try:
             url, art = self.urllist.pop(0)
         except IndexError:
-            print('All done.')
+            self.logger.info(' All done.')
             return None
-        print("NEXT ART:", art)
-        print("remaining ", len(self.urllist))
+        self.logger.info(' NEXT ART:{}'.format(art))
+        self.logger.info(' remaining {}'.format(len(self.urllist)))
         return SeleniumRequest(url=url,
                                dont_filter=True,
                                headers={'Referer': self.start_urls[0]},
@@ -59,35 +59,29 @@ class MvideoSpider(scrapy.Spider):
             actions.perform()
             time.sleep(.5)
         html = driver.page_source
-        text = response.text
-        # print(len(html), len(text))
         soup = bs(html, "html.parser")
-        # print(soup.prettify())
         try:
             link = ""
-            # print(soup.select('a.product-title__text'))
-            # print("*************")
             for a in soup.select('a.product-title__text'):
                 link_tmp = a.get('href')
                 title_tmp = a.text.strip()
-                # print(title_tmp)
                 if art in title_tmp:
                     title, link = title_tmp, link_tmp
 
             if not link:
-                print('NOT FOUND.')
+                self.logger.info(' NOT FOUND.')
                 yield self.next_art()
                 return None
-            print("FOUND", link)
+            self.logger.info(' FOUND {}'.format(link))
 
             yield SeleniumRequest(url=link,
                                   meta={'art': art, 'link': link},
                                   callback=self.parse_item,
                                   dont_filter=True, )
         except:
-            print('ERROR')
+            self.logger.error(' incorrect html')
             driver.get_screenshot_as_file('err/image{}.png'.format(art))
-            self.urllist.append([response.url, art])
+            #self.urllist.append([response.url, art])
             yield self.next_art()
             return None
 
@@ -104,14 +98,14 @@ class MvideoSpider(scrapy.Spider):
         soup = bs(html, "html.parser")
         try:
             title = soup.select_one('div.title-brand > h1').text.strip()
-            print(art, title)
+            self.logger.info(' {} {}'.format(art, title))
             if (art.lower() in title.lower()) and (art.lower() + '-' not in title.lower()):
-                print('===========')
+                self.logger.info(' ===========')
                 try:
                     price = soup.select_one('p.price__main-value').text.strip().replace('\xa0', '').replace('руб.', '')
                 except:
                     price = 0
-                    print(soup.select('mvideoru-product-details-card'))
+                    self.logger.error(' price not found: {}'.format(soup.select('mvideoru-product-details-card')))
 
                 yield {'title': title,
                        'link': link,
@@ -120,9 +114,9 @@ class MvideoSpider(scrapy.Spider):
                        'art': art
                        }
             else:
-                print('!!!!!!!!!!!!!!============')
+                self.logger.info(' !!!!!!!!!!!!!!============')
         except:
-            print('ITEM ERROR')
+            self.logger.error(' ITEM ERROR')
             driver.get_screenshot_as_file('err/image_i{}.png'.format(art))
             yield self.next_art()
             return None

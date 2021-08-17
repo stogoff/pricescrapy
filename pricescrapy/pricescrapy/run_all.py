@@ -23,6 +23,12 @@ config = configparser.ConfigParser()
 config.read('shops.cfg')
 for shop, value in config.items('Shops'):
     if value == '1':
+        if main_brand.lower() == 'frap':
+            if shop in ('eldorado', 'mvideo'):
+                continue
+        elif main_brand.lower() == 'tescoma':
+            if shop in ('wildberries'):
+                continue
         print(shop)
         process.crawl(shop)
 

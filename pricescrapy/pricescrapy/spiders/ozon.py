@@ -17,7 +17,7 @@ class OzonSpider(scrapy.Spider):
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
-                print(art)
+                self.logger.info('{}'.format(art))
                 url = self.search.format(brand, art)
                 yield SeleniumRequest(url=url,
                                              dont_filter=True,
@@ -42,7 +42,6 @@ class OzonSpider(scrapy.Spider):
                 'a.tile-hover-target::attr(href)').get().split('?')[0]
             for s in response.css('div.widget-search-result-container').css('a.tile-hover-target').css('div').css(
                     'span'):
-                #print(s.get(), "\n")
                 if 'style' in s.attrib:
                     if s.attrib['style'] in ['color:#f91155;',  'color:#001a34;']:
                         price = s.css('::text').get()
@@ -56,6 +55,5 @@ class OzonSpider(scrapy.Spider):
                    'art': art
                    }
         except:
-            print('error')
             raise
             pass

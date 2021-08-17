@@ -32,17 +32,17 @@ class WildberriesSpider(scrapy.Spider):
                     continue
                 url = self.search.format(brand, art)
                 self.urllist.append([url, art])
-        print("Goods for search:", len(self.urllist))
+        self.logger.info('Goods for search:{}'.format(len(self.urllist)))
         yield self.next_art()
 
     def next_art(self):
         try:
             url, art = self.urllist.pop(0)
         except IndexError:
-            print('All done.')
+            self.logger.info('All done.')
             return None
-        print("NEXT ART:", art)
-        print("remaining ", len(self.urllist))
+        self.logger.info('NEXT ART:{}'.format(art))
+        self.logger.info('remaining {}'.format(len(self.urllist)))
         return SeleniumRequest(url=url,
                               dont_filter=True,
                               headers={'Referer': self.start_urls[0]},
@@ -56,32 +56,30 @@ class WildberriesSpider(scrapy.Spider):
         # with open('image{}.png'.format(art), 'wb') as image_file:
         #    image_file.write(response.meta['screenshot'])
         driver = response.request.meta['driver']
-        for x in range(10):
+        for x in range(5):
             actions = ActionChains(driver)
             # actions.send_keys(Keys.SPACE)
             actions.send_keys(Keys.PAGE_UP)
             actions.perform()
-            time.sleep(1)
+            time.sleep(.5)
         html = driver.page_source
         #driver.get_screenshot_as_file('scr/image{}.png'.format(art))
         soup = bs(html, "html.parser")
         try:
             notfound_hidden = 'hide' in soup.select('p.searching-results-text')[0].parent.get('class')
             if not notfound_hidden:
-                print('NOT FOUND.')
-
+                self.logger.info('NOT FOUND.')
                 yield self.next_art()
                 return None
             r_link = soup.select('a.j-open-full-product-card.ref_goods_n_p')[0].get('href').split('?')[0]
         except:
-            print('ERROR')
+            self.logger.error('incorrect html')
             driver.get_screenshot_as_file('err/image{}.png'.format(art))
-
             #self.urllist.append([response.url, art])
             yield self.next_art()
             return None
         link = 'https://wildberries.ru' + r_link
-        print(art, link)
+        self.logger.info('FOUND LINK: {} {}'.format(art, link))
         yield SeleniumRequest(url=link,
                               meta={'art': art, 'link': link},
                               callback=self.parse_item,
@@ -92,9 +90,9 @@ class WildberriesSpider(scrapy.Spider):
         link = response.meta['link']
         try:
             title = response.css('span[data-link="text{:productCard^goodsName}"]::text').get()
-            print(art, title)
+            self.logger.info('{} {}'.format(art, title))
             if (art.lower() in title.lower()) and (art.lower() + '-' not in title.lower()):
-                print('===========')
+                self.logger.info(' ===========')
                 price = response.css('span.price-block__final-price::text').get().strip().replace('\xa0', '').replace(
                     '₽', '')
                 yield {'title': title,
@@ -104,7 +102,7 @@ class WildberriesSpider(scrapy.Spider):
                        'art': art
                        }
             else:
-                print('!!!!!!!!!!!!!!============')
+                self.logger.info('!!!!!!!!!!!!!!============')
         except:
             pass
         yield self.next_art()

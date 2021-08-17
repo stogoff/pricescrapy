@@ -17,7 +17,7 @@ class CitilinkSpider(scrapy.Spider):
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
-                print(art)
+                self.logger.info('{}'.format(art))
                 url = self.search.format(brand, art)
                 yield SeleniumRequest(url=url,
                                              dont_filter=True,
@@ -33,7 +33,7 @@ class CitilinkSpider(scrapy.Spider):
         try:
             try:
                 na = response.css('h2.ProductHeader__not-available-header::text').get().strip()
-                print(art, na)
+                self.logger.info('{} is not available'.format(art))
                 return None
             except:
                 pass
@@ -41,7 +41,7 @@ class CitilinkSpider(scrapy.Spider):
             link = 'https://citilink.ru' + t.css('a.ProductCardVertical__name::attr(href)').get()
             title = t.css('a.ProductCardVertical__name::attr(title)').get()
             if art.lower() not in title.lower():
-                print("!!!!!!!!!! {} != {}".format(art, title))
+                self.logger.info('{} !!!=== {}'.format(art, title))
                 return None
             try:
                 price = t.css('span.ProductCardVerticalPrice__price-club_current-price::text').get().strip()
@@ -58,5 +58,5 @@ class CitilinkSpider(scrapy.Spider):
                    'art': art
                    }
         except:
-            print(art, 'error')
+            self.logger.error('{} parsing error'.format(art))
             raise

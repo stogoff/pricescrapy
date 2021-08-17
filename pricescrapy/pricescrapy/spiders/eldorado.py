@@ -18,7 +18,7 @@ class EldoradoSpider(scrapy.Spider):
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
-                print(art)
+                self.logger.info('{}'.format(art))
                 url = self.search.format(brand, art)
                 yield scrapy.Request(url=url,
                                      headers={'Referer': self.start_urls[0]},
