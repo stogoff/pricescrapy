@@ -1,5 +1,12 @@
 import scrapy
 import re
+from scrapy_selenium import SeleniumRequest
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup as bs
+
+import time
+import sys
 
 
 class TmallSpider(scrapy.Spider):
@@ -17,10 +24,13 @@ class TmallSpider(scrapy.Spider):
                 # query = "{} {}".format(art,title)
                 print(art)
                 url = self.search.format(brand, art)
-                yield scrapy.Request(url=url,
-                                     dont_filter=True,
-                                     headers={'Referer': self.start_urls[0]},
-                                     meta={'art': art, 'brand': brand}, callback=self.parse)
+                yield SeleniumRequest(url=url,
+                                      dont_filter=True,
+                                      headers={'Referer': self.start_urls[0]},
+                                      meta={'art': art, 'brand': brand},
+                                      wait_time=5,
+                                      screenshot=False,
+                                      callback=self.parse)
 
     def parse(self, response):
         art = response.meta['art']
@@ -29,7 +39,7 @@ class TmallSpider(scrapy.Spider):
             price = response.css('div.price').css('span::text').get().replace('\xa0', '')
             price = re.split(r'\W+', price)[0]
             title = ''.join(response.css('a.product').xpath('.//text()').getall())
-            title = title.replace("\n"," ").replace("\t","").strip()
+            title = title.replace("\n", " ").replace("\t", "").strip()
             link = 'https://aliexpress.ru' + response.css('a.product::attr(href)').get().split('?')[0]
             yield {'title': title,
                    'link': link,
