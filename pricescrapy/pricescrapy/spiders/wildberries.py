@@ -36,7 +36,11 @@ class WildberriesSpider(scrapy.Spider):
         yield self.next_art()
 
     def next_art(self):
-        url, art = self.urllist.pop(0)
+        try:
+            url, art = self.urllist.pop(0)
+        except IndexError:
+            print('All done.')
+            return None
         print("NEXT ART:", art)
         print("remaining ", len(self.urllist))
         return SeleniumRequest(url=url,
@@ -73,7 +77,7 @@ class WildberriesSpider(scrapy.Spider):
             print('ERROR')
             driver.get_screenshot_as_file('err/image{}.png'.format(art))
 
-            self.urllist.append([response.url, art])
+            #self.urllist.append([response.url, art])
             yield self.next_art()
             return None
         link = 'https://wildberries.ru' + r_link

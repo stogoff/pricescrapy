@@ -102,7 +102,6 @@ class MvideoSpider(scrapy.Spider):
             time.sleep(.5)
         html = driver.page_source
         soup = bs(html, "html.parser")
-        # print(soup.prettify())
         try:
             title = soup.select_one('div.title-brand > h1').text.strip()
             print(art, title)
