@@ -134,6 +134,7 @@ INPUT_FILENAME = files[-1]
 OUTPUT_FILENAME = 'static/result{}.csv'.format(INPUT_FILENAME[-14:-4])
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(INPUT_FILENAME[-14:-4])
 LOG_FILE = 'log/{}.log'.format(INPUT_FILENAME[-14:-4])
+LOG_STDOUT = True
 print(INPUT_FILENAME)
 with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
     line = f.readline()
