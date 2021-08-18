@@ -125,15 +125,21 @@ path = '/tmp/uploads'
 files = []
 # r=root, d=directories, f = files
 for r, d, f in os.walk(path):
-    for file in f:
-        if '.txt' in file:
-            files.append(os.path.join(r, file))
+    for filename in f:
+        if '.txt' in filename:
+            files.append(os.path.join(r, filename))
 
 files.sort()
 INPUT_FILENAME = files[-1]
-OUTPUT_FILENAME = 'static/result{}.csv'.format(INPUT_FILENAME[-14:-4])
-OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(INPUT_FILENAME[-14:-4])
-LOG_FILE = 'log/{}.log'.format(INPUT_FILENAME[-14:-4])
+TS = INPUT_FILENAME[-14:-4]
+OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
+OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
+i = 0
+for r, d, f in os.walk('/home/rs/Dropbox/code/py/scrapy/price_scrapy/pricescrapy/pricescrapy/log/'):
+    for filename in f:
+        if TS in filename:
+            i += 1
+LOG_FILE = 'log/{}-{}.log'.format(TS, i)
 LOG_STDOUT = True
 print(INPUT_FILENAME)
 with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
