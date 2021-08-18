@@ -139,6 +139,8 @@ for r, d, f in os.walk('log/'):
     for filename in f:
         if TS in filename:
             i += 1
+if i > 1:
+    i = 1
 LOG_FILE = 'log/{}-{}.log'.format(TS, i)
 LOG_STDOUT = True
 print(INPUT_FILENAME)
