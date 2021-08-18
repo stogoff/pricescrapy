@@ -135,7 +135,7 @@ TS = INPUT_FILENAME[-14:-4]
 OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
 i = 0
-for r, d, f in os.walk('/home/rs/Dropbox/code/py/scrapy/price_scrapy/pricescrapy/pricescrapy/log/'):
+for r, d, f in os.walk('log/'):
     for filename in f:
         if TS in filename:
             i += 1
