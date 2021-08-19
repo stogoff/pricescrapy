@@ -17,8 +17,9 @@ class OzonSpider(scrapy.Spider):
                 art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
                 title = line.strip().split(';')[2]
                 # query = "{} {}".format(art,title)
-                self.logger.info('{}'.format(art))
+
                 url = self.search.format(brand, art)
+                self.logger.info('{}  {}'.format(art, url))
                 yield SeleniumRequest(url=url,
                                              dont_filter=True,
                                              headers={'Referer': self.start_urls[0]},
