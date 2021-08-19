@@ -30,6 +30,7 @@ class OzonSpider(scrapy.Spider):
 
     def parse(self, response):
         art = response.meta['art']
+        self.logger.info('parsing {}'.format(art))
         brand = response.meta['brand']
         if 'найден' not in response.text or 'запросу' not in response.text:
             return None
