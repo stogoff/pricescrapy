@@ -1,6 +1,7 @@
 import configparser
 import os
 import time
+import socket
 
 from flask import Flask, flash, request, redirect, render_template, Markup
 from flask_httpauth import HTTPBasicAuth
@@ -13,7 +14,7 @@ app.secret_key = "@$#secret%key&"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-ALLOWED_EXTENSIONS = {'txt', 'csv'}
+ALLOWED_EXTENSIONS = {'xls', 'xlsx'}
 
 auth = HTTPBasicAuth()
 
@@ -68,11 +69,12 @@ def upload_file():
             flash('Не выбран файл')
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            ext = file.filename.rsplit('.', 1)[1].lower()
             # filename = secure_filename(file.filename)
             timestamp = str(int(time.time()))
             link = '/static/result{}.csv'.format(timestamp)
             xlink = '/static/result{}.xlsx'.format(timestamp)
-            fn = 'in{}.txt'.format(timestamp)
+            fn = 'in{}.{}'.format(timestamp, ext)
             print(file.filename, fn)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], fn))
             flash(Markup('Файл {} успешно загружен. По этой <a href="{}">ссылке</a> через некоторое время,  \
@@ -81,9 +83,10 @@ def upload_file():
                         <a href="{}">Здесь будет доступна сводная таблица.</a> '.format(fn, link, xlink)))
             return redirect('/')
         else:
-            flash('Разрешенный тип файла: txt')
+            flash('Разрешенный тип файла: xls, xlsx')
             return redirect(request.url)
 
 
 if __name__ == "__main__":
-    app.run(host='95.217.153.139')#"localhost")
+    ip = socket.gethostbyname(socket.gethostname())
+    app.run(host=ip)

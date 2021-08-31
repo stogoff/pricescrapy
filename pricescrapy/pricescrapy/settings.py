@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 import time
+from openpyxl import load_workbook
+import xlrd
 
 # Scrapy settings for pricescrapy project
 #
@@ -109,14 +112,15 @@ SPIDER_SETTINGS = [
 # SELENIUM
 # for firefox
 from shutil import which
-#SELENIUM_DRIVER_NAME = 'chrome'
-#SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
+
+# SELENIUM_DRIVER_NAME = 'chrome'
+# SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
 SELENIUM_DRIVER_NAME = 'firefox'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('geckodriver')
 SELENIUM_DRIVER_ARGUMENTS = ['-headless']
 DOWNLOADER_MIDDLEWARES = {
-     'scrapy_selenium.SeleniumMiddleware': 800
-     }
+    'scrapy_selenium.SeleniumMiddleware': 800
+}
 # SELENIUM END
 
 
@@ -126,12 +130,41 @@ files = []
 # r=root, d=directories, f = files
 for r, d, f in os.walk(path):
     for filename in f:
-        if '.txt' in filename:
+        if '.xls' in filename:
             files.append(os.path.join(r, filename))
 
 files.sort()
-INPUT_FILENAME = files[-1]
-TS = INPUT_FILENAME[-14:-4]
+IN_XLS_FILENAME = files[-1]
+INPUT_FILENAME = IN_XLS_FILENAME.replace('.xlsx', '.txt').replace('.xls', '.txt')
+text = ''
+if '.xlsx' in IN_XLS_FILENAME:
+    TS = IN_XLS_FILENAME[-15:-5]
+    wb = load_workbook(filename=IN_XLS_FILENAME)
+    ws = wb.active
+    for row_cells in ws.iter_rows():
+        row = []
+        for cell in row_cells:
+            v = str(cell.value).replace('"','')
+            row.append(v)
+        text += (";".join(row)) + "\n"
+else:
+    TS = IN_XLS_FILENAME[-14:-4]
+    book = xlrd.open_workbook(IN_XLS_FILENAME)
+    print("The number of worksheets is {0}".format(book.nsheets))
+    print("Worksheet name(s): {0}".format(book.sheet_names()))
+    sh = book.sheet_by_index(0)
+    print(sh.nrows, sh.ncols)
+
+    for row_idx in range(sh.nrows):
+        row = []
+        for col_idx in range(min(4, sh.ncols)):
+            v = str(sh.cell(row_idx, col_idx).value).replace('"','')
+            row.append(v)
+        text += (";".join(row)) + "\n"
+with open(INPUT_FILENAME, 'w') as file:
+    file.write(text)
+
+
 OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
 i = 0
