@@ -4,6 +4,7 @@ import sys
 import time
 from openpyxl import load_workbook
 import xlrd
+import re
 
 # Scrapy settings for pricescrapy project
 #
@@ -141,15 +142,18 @@ if '.xlsx' in IN_XLS_FILENAME:
     TS = IN_XLS_FILENAME[-15:-5]
     wb = load_workbook(filename=IN_XLS_FILENAME)
     ws = wb.active
+    print('XLSX')
+    print(ws.max_row, ws.max_column)
     for row_cells in ws.iter_rows():
         row = []
         for cell in row_cells:
-            v = str(cell.value).replace('"','')
+            v = str(cell.value).replace('"', '')
             row.append(v)
         text += (";".join(row)) + "\n"
 else:
     TS = IN_XLS_FILENAME[-14:-4]
     book = xlrd.open_workbook(IN_XLS_FILENAME)
+    print('XLS')
     print("The number of worksheets is {0}".format(book.nsheets))
     print("Worksheet name(s): {0}".format(book.sheet_names()))
     sh = book.sheet_by_index(0)
@@ -158,12 +162,13 @@ else:
     for row_idx in range(sh.nrows):
         row = []
         for col_idx in range(min(4, sh.ncols)):
-            v = str(sh.cell(row_idx, col_idx).value).replace('"','')
-            row.append(v)
+            val = str(sh.cell(row_idx, col_idx).value)
+            val = re.sub('.0$', '', val)
+            val = val.replace('"', '')
+            row.append(val)
         text += (";".join(row)) + "\n"
 with open(INPUT_FILENAME, 'w') as file:
     file.write(text)
-
 
 OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
