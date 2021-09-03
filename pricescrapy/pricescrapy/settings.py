@@ -97,18 +97,7 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
-SPIDER_SETTINGS = [
-    {
-        'endpoint': 'ym',
-        'location': 'spiders.ym',
-        'spider': 'YmSpider',
-        'scrapy_settings': {
-            'ITEM_PIPELINES': {
-                'pipelines.AddTablePipeline': 500
-            }
-        }
-    }
-]
+
 
 # SELENIUM
 # for firefox
@@ -186,4 +175,5 @@ with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
     line = f.readline()
 MAIN_BRAND = line.split(';')[0].lower().strip()
 print("*{}*".format(MAIN_BRAND))
+print(SELENIUM_DRIVER_EXECUTABLE_PATH)
 time.sleep(1)
