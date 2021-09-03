@@ -175,5 +175,7 @@ with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
     line = f.readline()
 MAIN_BRAND = line.split(';')[0].lower().strip()
 print("*{}*".format(MAIN_BRAND))
-print(SELENIUM_DRIVER_EXECUTABLE_PATH)
+with open('test.log', 'w') as f:
+    f.write("***")
+    f.write(SELENIUM_DRIVER_EXECUTABLE_PATH)
 time.sleep(1)
