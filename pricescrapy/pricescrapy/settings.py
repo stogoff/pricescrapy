@@ -132,7 +132,7 @@ if '.xlsx' in IN_XLS_FILENAME:
     wb = load_workbook(filename=IN_XLS_FILENAME)
     ws = wb.active
     print('XLSX')
-    print(ws.max_row, ws.max_column)
+    print(f"Rows:{ws.max_row} Cols:{ws.max_column}")
     for row_cells in ws.iter_rows():
         row = []
         for cell in row_cells:
@@ -141,21 +141,23 @@ if '.xlsx' in IN_XLS_FILENAME:
         text += (";".join(row)) + "\n"
 else:
     TS = IN_XLS_FILENAME[-14:-4]
-    book = xlrd.open_workbook(IN_XLS_FILENAME)
-    print('XLS')
-    print("The number of worksheets is {0}".format(book.nsheets))
-    print("Worksheet name(s): {0}".format(book.sheet_names()))
-    sh = book.sheet_by_index(0)
-    print(sh.nrows, sh.ncols)
-
-    for row_idx in range(sh.nrows):
-        row = []
-        for col_idx in range(min(4, sh.ncols)):
-            val = str(sh.cell(row_idx, col_idx).value)
-            val = re.sub('.0$', '', val)
-            val = val.replace('"', '')
-            row.append(val)
-        text += (";".join(row)) + "\n"
+    try:
+        book = xlrd.open_workbook(IN_XLS_FILENAME)
+        print('XLS')
+        print("The number of worksheets is {0}".format(book.nsheets))
+        print("Worksheet name(s): {0}".format(book.sheet_names()))
+        sh = book.sheet_by_index(0)
+        print(f"Rows:{sh.nrows} Cols:{sh.ncols}")
+        for row_idx in range(sh.nrows):
+            row = []
+            for col_idx in range(min(4, sh.ncols)):
+                val = str(sh.cell(row_idx, col_idx).value)
+                val = re.sub('.0$', '', val)
+                val = val.replace('"', '')
+                row.append(val)
+            text += (";".join(row)) + "\n"
+    except:
+        print("file is empty")
 with open(INPUT_FILENAME, 'w') as file:
     file.write(text)
 
@@ -169,8 +171,8 @@ for r, d, f in os.walk('log/'):
             i += 1
 if i > 1:
     i = 1
-LOG_FILE = 'log/{}-{}.log'.format(TS, i)
-LOG_STDOUT = True
+#LOG_FILE = 'log/{}-{}.log'.format(TS, i)
+#LOG_STDOUT = True
 print(INPUT_FILENAME)
 with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
     line = f.readline()

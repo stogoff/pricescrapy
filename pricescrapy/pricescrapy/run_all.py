@@ -13,9 +13,6 @@ def return_hyperlink(x):
 process = CrawlerProcess(get_project_settings())
 outfile = process.settings['OUTPUT_FILENAME']
 main_brand = process.settings['MAIN_BRAND']
-print("*****")
-print(os.path.isfile(outfile))
-print('***')
 if os.path.isfile(outfile):
     print(outfile)
     print('old')
