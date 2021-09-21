@@ -164,15 +164,15 @@ with open(INPUT_FILENAME, 'w') as file:
 OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
 print("OUTPUT: ", OUTPUT_FILENAME)
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
-i = 0
-for r, d, f in os.walk('log/'):
-    for filename in f:
-        if TS in filename:
-            i += 1
-if i > 1:
-    i = 1
-#LOG_FILE = 'log/{}-{}.log'.format(TS, i)
-#LOG_STDOUT = True
+# i = 0
+# for r, d, f in os.walk('log/'):
+#     for filename in f:
+#         if TS in filename:
+#             i += 1
+# if i > 1:
+#     i = 1
+# LOG_FILE = 'log/{}-{}.log'.format(TS, i)
+# LOG_STDOUT = True
 print(INPUT_FILENAME)
 with open(INPUT_FILENAME, encoding='utf-8-sig') as f:
     line = f.readline()
