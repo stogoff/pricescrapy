@@ -122,7 +122,8 @@ for r, d, f in os.walk(path):
     for filename in f:
         if '.xls' in filename:
             files.append(os.path.join(r, filename))
-
+if not files:
+    sys.exit()
 files.sort()
 IN_XLS_FILENAME = files[-1]
 INPUT_FILENAME = IN_XLS_FILENAME.replace('.xlsx', '.txt').replace('.xls', '.txt')

@@ -16,6 +16,7 @@ main_brand = process.settings['MAIN_BRAND']
 if os.path.isfile(outfile):
     print(outfile)
     print('old')
+    os.remove(process.settings['IN_XLS_FILENAME'])
     sys.exit()
 file = open(outfile, 'w')
 file.close()
@@ -33,8 +34,9 @@ for shop, value in config.items('Shops'):
         process.crawl(shop)
 
 process.start()  # the script will block here until all crawling jobs are finished
+#os.remove(process.settings['IN_XLS_FILENAME'])
 
-out_xls = process.settings['OUTPUT_XLSX_FILENAME']
+out_xlsx = process.settings['OUTPUT_XLSX_FILENAME']
 
 try:
     df = pd.read_csv(outfile, delimiter=';', header=None,
@@ -42,7 +44,7 @@ try:
     df['shop_price'] = df.apply(return_hyperlink, axis=1)
     dfp = pd.pivot_table(df, values=['shop_price'], index='art', columns='shop', aggfunc='first')
     #print(dfp.iloc[0, 3])
-    dfp.to_excel(out_xls)
+    dfp.to_excel(out_xlsx)
 
     file = open(outfile, 'a')
     file.write("\nend of file\n")
