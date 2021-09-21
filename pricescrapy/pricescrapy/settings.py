@@ -160,6 +160,7 @@ with open(INPUT_FILENAME, 'w') as file:
     file.write(text)
 
 OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
+print("OUTPUT: ", OUTPUT_FILENAME)
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
 i = 0
 for r, d, f in os.walk('log/'):
