@@ -10,8 +10,9 @@ import time
 class PricescrapyPipeline(object):
     def process_item(self, item, spider):
         with open(spider.settings.get('OUTPUT_FILENAME'), 'a') as file:
-            time.sleep(2)
+
             file.write("{};{};{};{};{}\n".format(item['art'], item['title'], item['price'], item['shop'], item['link']))
+        time.sleep(2)
         return item
 
 # from sqlalchemy import create_engine
