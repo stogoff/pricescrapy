@@ -48,12 +48,12 @@ class WildberriesSpider(scrapy.Spider):
                               headers={'Referer': self.start_urls[0]},
                               meta={'art': art},
                               wait_time=5,
-                              screenshot=False,
+                              screenshot=True,
                               callback=self.parse_search)
 
     def parse_search(self, response):
         art = response.meta['art']
-        # with open('image{}.png'.format(art), 'wb') as image_file:
+        #with open('image{}.png'.format(art), 'wb') as image_file:
         #    image_file.write(response.meta['screenshot'])
         driver = response.request.meta['driver']
         for x in range(5):
@@ -63,20 +63,22 @@ class WildberriesSpider(scrapy.Spider):
             actions.perform()
             time.sleep(.5)
         html = driver.page_source
-        #driver.get_screenshot_as_file('scr/image{}.png'.format(art))
+        driver.get_screenshot_as_file('scr/image{}.png'.format(art))
         soup = bs(html, "html.parser")
         try:
-            notfound_hidden = 'hide' in soup.select('p.searching-results-text')[0].parent.get('class')
+            notfound_hidden = 'hide' in soup.select('p.searching-results__text')[0].parent.get('class')
             if not notfound_hidden:
                 self.logger.info('NOT FOUND.')
                 yield self.next_art()
                 return None
-            r_link = soup.select('a.j-open-full-product-card.ref_goods_n_p')[0].get('href').split('?')[0]
+            r_link = soup.select('a.j-open-full-product-card')[0].get('href').split('?')[0]
+            #soup.select('a.j-open-full-product-card.ref_goods_n_p')[0].get('href').split('?')[0]
         except:
             self.logger.error('incorrect html')
             driver.get_screenshot_as_file('err/image{}.png'.format(art))
             #self.urllist.append([response.url, art])
             yield self.next_art()
+            raise
             return None
         link = 'https://wildberries.ru' + r_link
         self.logger.info('FOUND LINK: {} {}'.format(art, link))
@@ -90,8 +92,9 @@ class WildberriesSpider(scrapy.Spider):
         link = response.meta['link']
         try:
             title = response.css('span[data-link="text{:productCard^goodsName}"]::text').get()
+            description = response.css('div.j-description').css('p::text').get()
             self.logger.info('{} {}'.format(art, title))
-            if (art.lower() in title.lower()) and (art.lower() + '-' not in title.lower()):
+            if (art.lower() in description.lower()) or (art.lower() in title.lower()) and (art.lower() + '-' not in title.lower()):
                 self.logger.info(' ===========')
                 price = response.css('span.price-block__final-price::text').get().strip().replace('\xa0', '').replace(
                     '₽', '')
