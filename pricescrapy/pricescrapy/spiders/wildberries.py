@@ -36,6 +36,7 @@ class WildberriesSpider(scrapy.Spider):
         yield self.next_art()
 
     def next_art(self):
+        time.sleep(2)
         try:
             url, art = self.urllist.pop(0)
         except IndexError:
@@ -44,16 +45,16 @@ class WildberriesSpider(scrapy.Spider):
         self.logger.info('NEXT ART:{}'.format(art))
         self.logger.info('remaining {}'.format(len(self.urllist)))
         return SeleniumRequest(url=url,
-                              dont_filter=True,
-                              headers={'Referer': self.start_urls[0]},
-                              meta={'art': art},
-                              wait_time=5,
-                              screenshot=True,
-                              callback=self.parse_search)
+                               dont_filter=True,
+                               headers={'Referer': self.start_urls[0]},
+                               meta={'art': art},
+                               wait_time=5,
+                               screenshot=True,
+                               callback=self.parse_search)
 
     def parse_search(self, response):
         art = response.meta['art']
-        #with open('image{}.png'.format(art), 'wb') as image_file:
+        # with open('image{}.png'.format(art), 'wb') as image_file:
         #    image_file.write(response.meta['screenshot'])
         driver = response.request.meta['driver']
         for x in range(5):
@@ -72,11 +73,11 @@ class WildberriesSpider(scrapy.Spider):
                 yield self.next_art()
                 return None
             r_link = soup.select('a.j-open-full-product-card')[0].get('href').split('?')[0]
-            #soup.select('a.j-open-full-product-card.ref_goods_n_p')[0].get('href').split('?')[0]
+            # soup.select('a.j-open-full-product-card.ref_goods_n_p')[0].get('href').split('?')[0]
         except:
             self.logger.error('incorrect html')
             driver.get_screenshot_as_file('err/image{}.png'.format(art))
-            #self.urllist.append([response.url, art])
+            # self.urllist.append([response.url, art])
             yield self.next_art()
             raise
             return None
@@ -94,10 +95,14 @@ class WildberriesSpider(scrapy.Spider):
             title = response.css('span[data-link="text{:productCard^goodsName}"]::text').get()
             description = response.css('div.j-description').css('p::text').get()
             self.logger.info('{} {}'.format(art, title))
-            if (art.lower() in description.lower()) or (art.lower() in title.lower()) and (art.lower() + '-' not in title.lower()):
+            if (art.lower() in title.lower() + description.lower()) and \
+                    (art.lower() + '-' not in title.lower() + description.lower()):
                 self.logger.info(' ===========')
-                price = response.css('span.price-block__final-price::text').get().strip().replace('\xa0', '').replace(
-                    '₽', '')
+                price = response.css('span.price-block__final-price::text').get()
+                if not price:
+                    price = response.css('span.price-block__commission-current-price::text').get()
+                price = price.strip().replace('\xa0', '').replace('₽', '')
+
                 yield {'title': title,
                        'link': link,
                        'price': price,

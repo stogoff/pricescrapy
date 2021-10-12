@@ -14,23 +14,40 @@ class TmallSpider(scrapy.Spider):
     allowed_domains = ['tmall.ru']
     start_urls = ['https://tmall.ru/']
     search = 'https://tmall.ru/wholesale?SearchText={}+{}'
+    urllist = []
+    urllist_len = 0
 
     def start_requests(self):
         with open(self.settings['INPUT_FILENAME']) as f:
             for line in f.readlines():
-                brand = line.strip().split(';')[0]
-                art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
-                title = line.strip().split(';')[2]
-                # query = "{} {}".format(art,title)
-                self.logger.info('{}'.format(art))
+                try:
+                    brand = line.strip().split(';')[0]
+                    if brand.lower() == 'bad_brand':
+                        continue
+                    art = line.strip().split(';')[1].replace(',', '.').replace('.00', '').strip()
+                except IndexError:
+                    continue
                 url = self.search.format(brand, art)
-                yield SeleniumRequest(url=url,
-                                      dont_filter=True,
-                                      headers={'Referer': self.start_urls[0]},
-                                      meta={'art': art, 'brand': brand},
-                                      wait_time=5,
-                                      screenshot=False,
-                                      callback=self.parse_search)
+                self.urllist.append([url, art])
+        self.logger.info('Goods for search:{}'.format(len(self.urllist)))
+        yield self.next_art()
+
+    def next_art(self):
+        time.sleep(2)
+        try:
+            url, art = self.urllist.pop(0)
+        except IndexError:
+            self.logger.info('All done.')
+            return None
+        self.logger.info('NEXT ART:{}'.format(art))
+        self.logger.info('remaining {}'.format(len(self.urllist)))
+        return SeleniumRequest(url=url,
+                                  dont_filter=True,
+                                  headers={'Referer': self.start_urls[0]},
+                                  meta={'art': art},
+                                  wait_time=5,
+                                  screenshot=False,
+                                  callback=self.parse_search)
 
     def parse_search(self, response):
         art = response.meta['art']
