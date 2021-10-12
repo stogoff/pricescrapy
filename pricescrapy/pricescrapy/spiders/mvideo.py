@@ -34,6 +34,7 @@ class MvideoSpider(scrapy.Spider):
         yield self.next_art()
 
     def next_art(self):
+        time.sleep(2)
         try:
             url, art = self.urllist.pop(0)
         except IndexError:

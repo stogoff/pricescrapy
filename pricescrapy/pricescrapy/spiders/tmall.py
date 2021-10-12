@@ -51,7 +51,7 @@ class TmallSpider(scrapy.Spider):
 
     def parse_search(self, response):
         art = response.meta['art']
-        brand = response.meta['brand']
+
         try:
             # price = response.css('div.price').css('span::text').get().replace('\xa0', '')
             # price = re.split(r'\W+', price)[0]
@@ -61,12 +61,13 @@ class TmallSpider(scrapy.Spider):
             yield SeleniumRequest(url=link,
                                   dont_filter=True,
                                   headers={'Referer': response.url},
-                                  meta={'art': art, 'brand': brand, 'title': title},
+                                  meta={'art': art,  'title': title},
                                   wait_time=5,
                                   screenshot=False,
                                   callback=self.parse_item)
         except AttributeError:
             self.logger.info('NOT FOUND{}'.format(art))
+            yield self.next_art()
 
     def parse_item(self, response):
         art = response.meta['art']
@@ -79,3 +80,4 @@ class TmallSpider(scrapy.Spider):
                'shop': self.name,
                'art': art
                }
+        yield self.next_art()
