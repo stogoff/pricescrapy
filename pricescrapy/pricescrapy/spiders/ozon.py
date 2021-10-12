@@ -32,22 +32,24 @@ class OzonSpider(scrapy.Spider):
         art = response.meta['art']
         self.logger.info('parsing {}'.format(art))
         brand = response.meta['brand']
+        price = None
         if 'найден' not in response.text or 'запросу' not in response.text:
             return None
         try:
-            title = response.css('div.widget-search-result-container').css('a.tile-hover-target')[2].css(
+            title = response.css('div.widget-search-result-container').css('a.tile-hover-target')[1].css(
                 'span::text').get()
-            if brand == 'frap':
-                if art not in title:
-                    return None
+            #if brand == 'frap':
+            if art not in title:
+                return None
             link = 'https://ozon.ru' + response.css('div.widget-search-result-container').css(
                 'a.tile-hover-target::attr(href)').get().split('?')[0]
-            for s in response.css('div.widget-search-result-container').css('a.tile-hover-target').css('div').css(
-                    'span'):
+            for s in response.css('div.widget-search-result-container').css('div').css('span'):
                 if 'style' in s.attrib:
                     if s.attrib['style'] in ['color:#f91155;',  'color:#001a34;']:
                         price = s.css('::text').get()
                         break
+            if not price:
+                return None
             price = price.replace('\u202f', '').replace('₽', '').replace(' ','')
 
             yield {'title': title,
