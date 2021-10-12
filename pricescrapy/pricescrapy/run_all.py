@@ -10,6 +10,13 @@ def return_hyperlink(x):
     return '=HYPERLINK("{0}", {1})'.format(x['link'], x['price'])
 
 
+def start_sequentially(process: CrawlerProcess, crawlers: list):
+    print('start crawler {}'.format(crawlers[0]))
+    deferred = process.crawl(crawlers[0])
+    if len(crawlers) > 1:
+        deferred.addCallback(lambda _: start_sequentially(process, crawlers[1:]))
+
+
 process = CrawlerProcess(get_project_settings())
 outfile = process.settings['OUTPUT_FILENAME']
 main_brand = process.settings['MAIN_BRAND']
@@ -22,6 +29,7 @@ file = open(outfile, 'w')
 file.close()
 config = configparser.ConfigParser()
 config.read('shops.cfg')
+crawlers = []
 for shop, value in config.items('Shops'):
     if value == '1':
         if main_brand.lower() == 'frap':
@@ -31,8 +39,10 @@ for shop, value in config.items('Shops'):
             if shop in ('wildberries'):
                 continue
         print(shop)
-        process.crawl(shop)
+        crawlers.append(shop)
+        #process.crawl(shop)
 
+start_sequentially(process, crawlers)
 process.start()  # the script will block here until all crawling jobs are finished
 #os.remove(process.settings['IN_XLS_FILENAME'])
 
