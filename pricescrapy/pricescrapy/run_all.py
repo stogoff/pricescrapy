@@ -1,6 +1,7 @@
 import configparser
 import os.path
 import sys
+import time
 import pandas as pd
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
@@ -12,6 +13,7 @@ def return_hyperlink(x):
 
 def start_sequentially(process: CrawlerProcess, crawlers: list):
     print('start crawler {}'.format(crawlers[0]))
+    time.sleep(5)
     deferred = process.crawl(crawlers[0])
     if len(crawlers) > 1:
         deferred.addCallback(lambda _: start_sequentially(process, crawlers[1:]))
