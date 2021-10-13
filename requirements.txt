@@ -42,3 +42,4 @@ beautifulsoup4>=4.9.3
 selenium>=3.141.0
 scrapy-selenium>=0.0.7
 xlrd
+uwsgi
