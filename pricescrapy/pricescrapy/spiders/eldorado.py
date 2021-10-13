@@ -32,7 +32,11 @@ class EldoradoSpider(scrapy.Spider):
     def parse(self, response):
         art = response.meta['art']
         brand = response.meta['brand']
+        ## DEBUG
+        with open("tttt.html", 'w') as file:
+            file.write(response.text)
 
+        ##
         try:
             for s in response.css('span'):
                 if 'data-pc' in s.attrib.keys():
@@ -45,7 +49,7 @@ class EldoradoSpider(scrapy.Spider):
                     if a.attrib['data-dy'] == 'title':
                         link = "https://www.eldorado.ru" + a.attrib['href']
                         title = a.css("::text").get()
-                        print(link, title)
+                        print('********************', link, title)
                         break
             if art.lower() not in link.lower():
                 return None
