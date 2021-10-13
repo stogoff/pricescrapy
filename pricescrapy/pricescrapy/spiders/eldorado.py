@@ -38,12 +38,15 @@ class EldoradoSpider(scrapy.Spider):
                 if 'data-pc' in s.attrib.keys():
                     if s.attrib['data-pc'] == 'offer_price':
                         price = s.css('span::text').get().replace(' ', '')
+                        print('********************', price)
                         break
             for a in response.css('a'):
                 if 'data-dy' in a.attrib.keys():
                     if a.attrib['data-dy'] == 'title':
                         link = "https://www.eldorado.ru" + a.attrib['href']
                         title = a.css("::text").get()
+                        print(link, title)
+                        break
             if art.lower() not in link.lower():
                 return None
             yield {'title': title,
@@ -53,4 +56,5 @@ class EldoradoSpider(scrapy.Spider):
                    'art': art
                    }
         except:
+            raise
             pass
