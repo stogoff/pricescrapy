@@ -165,6 +165,7 @@ with open(INPUT_FILENAME, 'w') as file:
 OUTPUT_FILENAME = 'static/result{}.csv'.format(TS)
 print("OUTPUT: ", OUTPUT_FILENAME)
 OUTPUT_XLSX_FILENAME = 'static/result{}.xlsx'.format(TS)
+OUTPUT_PIVOT_FILENAME = 'static/result_p{}.xlsx'.format(TS)
 # i = 0
 # for r, d, f in os.walk('log/'):
 #     for filename in f:

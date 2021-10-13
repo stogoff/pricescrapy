@@ -44,7 +44,7 @@ class EldoradoSpider(scrapy.Spider):
                     if a.attrib['data-dy'] == 'title':
                         link = "https://www.eldorado.ru" + a.attrib['href']
                         title = a.css("::text").get()
-            if art not in link:
+            if art.lower() not in link.lower():
                 return None
             yield {'title': title,
                    'link': link,

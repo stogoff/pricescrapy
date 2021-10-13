@@ -47,14 +47,15 @@ process.start()  # the script will block here until all crawling jobs are finish
 #os.remove(process.settings['IN_XLS_FILENAME'])
 
 out_xlsx = process.settings['OUTPUT_XLSX_FILENAME']
-
+pivot = process.settings['OUTPUT_PIVOT_FILENAME']
 try:
     df = pd.read_csv(outfile, delimiter=';', header=None,
                      names=['art', 'title', 'price', 'shop', 'link'])
+    df.to_excel(out_xlsx)
     df['shop_price'] = df.apply(return_hyperlink, axis=1)
     dfp = pd.pivot_table(df, values=['shop_price'], index='art', columns='shop', aggfunc='first')
     #print(dfp.iloc[0, 3])
-    dfp.to_excel(out_xlsx)
+    dfp.to_excel(pivot)
 
     file = open(outfile, 'a')
     file.write("\nend of file\n")
