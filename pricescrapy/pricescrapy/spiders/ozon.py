@@ -30,6 +30,8 @@ class OzonSpider(scrapy.Spider):
 
     def parse(self, response):
         art = response.meta['art']
+        self.logger.info('sleeping 5s')
+        time.sleep(5)
         self.logger.info('parsing {}'.format(art))
         brand = response.meta['brand']
         price = None

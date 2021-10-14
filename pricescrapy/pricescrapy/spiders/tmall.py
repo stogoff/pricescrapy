@@ -33,7 +33,8 @@ class TmallSpider(scrapy.Spider):
         yield self.next_art()
 
     def next_art(self):
-        time.sleep(2)
+        self.logger.info('sleeping 5s')
+        time.sleep(5)
         try:
             url, art = self.urllist.pop(0)
         except IndexError:

@@ -36,7 +36,8 @@ class WildberriesSpider(scrapy.Spider):
         yield self.next_art()
 
     def next_art(self):
-        time.sleep(2)
+        self.logger.info('sleeping 5s to next')
+        time.sleep(5)
         try:
             url, art = self.urllist.pop(0)
         except IndexError:
@@ -79,7 +80,7 @@ class WildberriesSpider(scrapy.Spider):
             driver.get_screenshot_as_file('err/image{}.png'.format(art))
             # self.urllist.append([response.url, art])
             yield self.next_art()
-            raise
+
             return None
         link = 'https://wildberries.ru' + r_link
         self.logger.info('FOUND LINK: {} {}'.format(art, link))
