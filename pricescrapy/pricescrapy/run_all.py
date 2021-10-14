@@ -5,7 +5,9 @@ import time
 import pandas as pd
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+from tendo import singleton
 
+me = singleton.SingleInstance()
 
 def return_hyperlink(x):
     return '=HYPERLINK("{0}", {1})'.format(x['link'], x['price'])
