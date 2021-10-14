@@ -1,7 +1,0 @@
-Ariane;APRARN000011015;Тарелка плоская, 15 см, Prime
-Ariane;APRARN000011017;Тарелка плоская, 17 см, Prime
-Ariane;APRARN000011021;Тарелка плоская, 21 см, Prime
-Ariane;APRARN000011023;Тарелка плоская 23 см, Prime
-Ariane;APRARN000011025;Тарелка плоская 25 см, Prime
-Ariane;APRARN000011027;Тарелка плоская 27 см, Prime
-Ariane;APRARN000011029;Тарелка плоская 29 см, Prime

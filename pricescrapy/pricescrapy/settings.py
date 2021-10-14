@@ -156,7 +156,10 @@ else:
                 val = re.sub('.0$', '', val)
                 val = val.replace('"', '')
                 row.append(val)
+            if "None" in row:
+                break
             text += (";".join(row)) + "\n"
+
     except:
         print("file is empty")
 with open(INPUT_FILENAME, 'w') as file:
