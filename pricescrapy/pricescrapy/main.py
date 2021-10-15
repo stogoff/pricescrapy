@@ -2,7 +2,7 @@ import configparser
 import os
 import time
 import socket
-
+import status
 from flask import Flask, flash, request, redirect, render_template, Markup
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -43,6 +43,8 @@ def upload_form():
     config.read('shops.cfg')
     for key, value in config.items('Shops'):
         shop_list[key] = value
+    state = status.status()
+    flash(Markup(state))
     return render_template('upload.html', shop_list=shop_list)
 
 
