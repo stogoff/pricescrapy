@@ -10,7 +10,7 @@ def status():
             if '.txt' in filename:
                 files.append(filename)
     if not files:
-        return "Файлы пока не загружены"
+        return "Ожидание"
     files.sort()
     txt = files[-1]
     out_path = 'static/'
