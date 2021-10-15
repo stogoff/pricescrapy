@@ -30,8 +30,11 @@ def status():
     link = '/static/result{}.xlsx'.format(timestamp)
     xlink = '/static/result_p{}.xlsx'.format(timestamp)
     if os.path.isfile(os.path.join(out_path, xlsx)):
-
-        status = f'Файл обработан. Результаты доступны  <a href="{link}">здесь</a> и <a href="{xlink}">здесь</a>'
+        size_csv =  os.path.getsize(os.path.join(out_path, csv))
+        if size_csv < 10:
+            status = f'Произошла ошибка обработки. Получен пустой файл. Обратитесь к разработчику'
+        else:
+            status = f'Файл обработан. Результаты доступны  <a href="{link}">здесь</a> и <a href="{xlink}">здесь</a>'
     else:
         t = int(time.time() - timestamp)
         status = f'Файл {txt} обрабатывается {t} c. По окончании результаты будут доступны  <a href="{link}">здесь</a> и <a href="{xlink}">здесь</a>'
