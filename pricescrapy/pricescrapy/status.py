@@ -32,7 +32,7 @@ def status():
     if os.path.isfile(os.path.join(out_path, xlsx)):
         size_csv =  os.path.getsize(os.path.join(out_path, csv))
         if size_csv < 10:
-            status = f'Произошла ошибка обработки. Получен пустой файл. Обратитесь к разработчику'
+            status = f'Произошла ошибка обработки файла {txt}. Обратитесь к разработчику'
         else:
             status = f'Файл обработан. Результаты доступны  <a href="{link}">здесь</a> и <a href="{xlink}">здесь</a>'
     else:
