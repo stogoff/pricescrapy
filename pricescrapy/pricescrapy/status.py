@@ -4,6 +4,16 @@ import time
 
 def status():
     in_path = '/tmp/uploads'
+    xfiles = []
+    xtimestamp = 0
+    for r, d, f in os.walk(in_path):
+        for filename in f:
+            if '.xls' in filename:
+                xfiles.append(filename)
+    if len(xfiles) > 0:
+        xfiles.sort()
+        inxls = xfiles[-1]
+        xtimestamp = inxls[2:12]
     files = []
     for r, d, f in os.walk(in_path):
         for filename in f:
@@ -13,6 +23,9 @@ def status():
         return "Ожидание"
     files.sort()
     txt = files[-1]
+    ttimestamp = txt[2:12]
+    if xtimestamp>ttimestamp:
+        txt = inxls
     out_path = 'static/'
     files = []
     for r, d, f in os.walk(out_path):
