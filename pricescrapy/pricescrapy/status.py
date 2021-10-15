@@ -13,7 +13,7 @@ def status():
     if len(xfiles) > 0:
         xfiles.sort()
         inxls = xfiles[-1]
-        xtimestamp = inxls[2:12]
+        xtimestamp = int(inxls[2:12])
     files = []
     for r, d, f in os.walk(in_path):
         for filename in f:
@@ -23,7 +23,7 @@ def status():
         return "Ожидание"
     files.sort()
     txt = files[-1]
-    ttimestamp = txt[2:12]
+    ttimestamp = int(txt[2:12])
     if xtimestamp>ttimestamp:
         txt = inxls
     out_path = 'static/'
@@ -38,6 +38,10 @@ def status():
     csv = files[-1]
     print(csv)
     timestamp = int(csv[-14:-4])
+    if timestamp < ttimestamp:
+        return f'Файл {txt} ожидает обработки'
+    elif timestamp<xtimestamp:
+        return f'Файл {inxls} ожидает обработки'
     xlsx = csv[:-3] + 'xlsx'
     print(xlsx)
     link = '/static/result{}.xlsx'.format(timestamp)
