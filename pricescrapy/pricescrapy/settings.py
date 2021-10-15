@@ -139,6 +139,8 @@ if '.xlsx' in IN_XLS_FILENAME:
         for cell in row_cells:
             v = str(cell.value).replace('"', '')
             row.append(v)
+        if "None" in row:
+            break
         text += (";".join(row)) + "\n"
 else:
     TS = IN_XLS_FILENAME[-14:-4]
