@@ -24,7 +24,7 @@ itemloaders==1.0.4
 itsdangerous==2.0.1
 Jinja2==3.0.1
 jmespath==0.10.0
-lxml==4.6.5
+lxml==4.9.1
 MarkupSafe==2.0.1
 numpy==1.21.2
 openpyxl==3.0.7
